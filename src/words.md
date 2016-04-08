@@ -1,5 +1,5 @@
 
-本文件为 https://github.com/daysofbeingwild/cppdraft-in-zhcn的词汇表
+本文件为 https://github.com/daysofbeingwild/cppdraft-in-zhcn 的词汇表
 
 iterator -- 迭代器  
 
