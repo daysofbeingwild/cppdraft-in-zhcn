@@ -16,7 +16,7 @@ These are the translations of C++ standard drafts. The primative materials were 
 + 编译并发布
 
 说明：
-+ 本译本大多数名词翻译与<C++ Primer>一书相同，本译本完整的名词对照表在文件src\words.md中
++ 本译本大多数名词翻译方式与*C++ Primer（人民邮电出版社）*一书相同，本译本完整的名词对照表在文件src\words.md中
 + 本译本内容尽最大可能保证原稿的意义
 + 本译本的原稿不一定与https://github.com/cplusplus/draft 同步
 + 为了保证翻译质量，本项目的发起者目前接受任何贡献者的翻译建议，但**暂时**不放出共同编辑的权限；在以后可能会考量
