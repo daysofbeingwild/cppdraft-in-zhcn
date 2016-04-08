@@ -15,4 +15,4 @@ These are the translations of C++ standard drafts. The primative materials were 
 + 力求精准
 + 大多数名词的翻译都参考自*C++ Primer（人民邮电出版社）*一书，完整的名词对照表在文件src\words.md中
 + 本译本翻译的原版草案不一定与https://github.com/cplusplus/draft 同步
-+ 为保证翻译质量，本项目的发起者目前接受、感激并可能采纳任何贡献者的翻译建议以及错误勘正，但**暂时**仅由发起者一人维护，在以后会考虑组织少量群体一起参与翻译工作
++ 为保证翻译质量，本项目的发起者目前接受、感激并可能采纳任何贡献者的翻译建议以及错误勘正，但项目目前仅由发起者一人维护，在以后会考虑组织多人一起参与翻译工作
