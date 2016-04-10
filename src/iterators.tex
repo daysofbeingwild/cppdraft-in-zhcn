@@ -4,10 +4,10 @@
 \rSec1[iterators.general]{概述}
 
 \pnum
-本章描述\Cpp 程序在容器(\ref{containers}章)中、流(\ref{iostream.format})上或流缓冲区(\ref{stream.buffers})中进行迭代操作时用到的组件。
+本章描述\Cpp 程序在容器(\ref{containers}章)中、流(\ref{iostream.format})上以及流缓冲区(\ref{stream.buffers})中进行迭代操作时用到的组件。
 
 \pnum
-本章后续子章节描述迭代器的需求以及迭代器原语、预定义迭代器和流迭代器的组件，如表\ref{tab:iterators.lib.summary}所示。
+本章后续子章节描述迭代器的需求以及迭代器原语、预定义迭代器和流迭代器组件，如表\ref{tab:iterators.lib.summary}所示。
 
 \begin{libsumtab}{迭代器库概览}{tab:iterators.lib.summary}
 	\ref{iterator.requirements} & 需求        &                           \\ \rowsep
@@ -23,7 +23,7 @@
 
 \pnum
 \indextext{requirements!iterator}%
-迭代器是指针概念的泛化，迭代器使得\Cpp 程序以统一的方式使用不同的数据结构（容器）。本库不仅规定了迭代器的接口形式，还规定了迭代器的语义和预期的复杂度，旨在于为各种类型的数据结构设计无误且高效的模板算法。所有输入迭代器\tcode{i}都可通过表达式\tcode{*i}产生对象类型\tcode{T}的值，\tcode{T}称为该迭代器的\term{值类型}。所有输出迭代器都支持表达式\tcode{*i = o}，其中\tcode{o}是迭代器\tcode{i}的\term{可写}类型集中某个可写类型的对象。使表达式\tcode{(*i).m}成立的迭代器\tcode{i}也使\tcode{i->m}成立，其语义与\tcode{(*i).m}相同。凡是定义了相等的迭代器类型\tcode{X}都存在一个称为\term{距离类型}的有符号整型与之对应。
+迭代器是指针概念的泛化，迭代器使得\Cpp 程序以统一的方式使用不同类型的数据结构（容器）。本库不仅规定了迭代器的接口形式，还规定了迭代器的语义和预期的复杂度，旨在于能为各种类型的数据结构设计无误且高效的模板算法。所有输入迭代器\tcode{i}都使表达式\tcode{*i}成立并产生对象类型\tcode{T}的值，\tcode{T}称为该迭代器的\term{值类型}。所有输出迭代器都使表达式\tcode{*i=o}成立，其中\tcode{o}是迭代器\tcode{i}的\term{可写}类型集合中某个可写类型的对象。使表达式\tcode{(*i).m}成立的迭代器\tcode{i}也使\tcode{i->m}成立，其语义与\tcode{(*i).m}相同。定义了相等的迭代器类型\tcode{X}都存在一个称为\term{距离类型}的有符号整型与之对应。
 
 \pnum
 迭代器是指针的抽象，因此迭代器的语义是\Cpp 指针绝大多数语义的泛化。此举确保所有适用迭代器的函数模板都同样适用常规指针。本标准根据迭代器自身所定义的操作定义了五种迭代器，它们分别是\techterm{输入迭代器}、\techterm{输出迭代器}、\techterm{前向迭代器}、\techterm{双向迭代器}以及\techterm{随机访问迭代器}，如表\ref{tab:iterators.relations}所示。
@@ -40,12 +40,12 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 前向迭代器满足输入迭代器的所有需求，因此可用于所有适用输入迭代器的场合；双向迭代器满足前向迭代器的所有需求，因此可用于所有适用前向迭代器的场合；随机访问迭代器满足双向迭代器的所有需求，因此可用于所有适用双向迭代器的场合。
 
 \pnum
-满足输出迭代器需求的迭代器也都称为\defnx{可变迭代器}{mutable iterator}。非可变迭代器也都称为\defnx{常值迭代器}{const iterator}。
+满足输出迭代器需求的迭代器也称为\defnx{可变迭代器}{mutable iterator}。非可变迭代器也称为\defnx{常值迭代器}{const iterator}。
 
 \pnum
-对于整型数值\tcode{n}以及可解引用的迭代器值\tcode{a}和\tcode{(a+n)}，满足\tcode{*(a+n)}与\tcode{*(addressof(*a)+n)}相等的迭代器也都称为\defnx{连续迭代器}{continuous iterator}。
+对于整型数值\tcode{n}以及可解引用的迭代器值\tcode{a}和\tcode{(a+n)}，满足\tcode{*(a+n)}与\tcode{*(addressof(*a)+n)}相等的迭代器也称为\defnx{连续迭代器}{continuous iterator}。
 \enternote
-例如，类型“指向\tcode{int}类型的指针”就是连续迭代器，但\tcode{reverse_iterator<int *>}则不是。可解引用迭代器\tcode{a}的有效迭代范围$[$\tcode{a}$, $\tcode{b}$)$对应的指针表示范围是$[$\tcode{addressof(*a)}$, $\tcode{addressof(*a) + (b - a)}$)$，其中\tcode{b}可能并不能解引用。
+例如，类型“指向\tcode{int}类型的指针”就是连续迭代器，\tcode{reverse_iterator<int *>}则不是。可解引用迭代器\tcode{a}的有效迭代范围$[$\tcode{a}$, $\tcode{b}$)$对应的指针表示范围是$[$\tcode{addressof(*a)}$, $\tcode{addressof(*a)+(b-a)}$)$，其中\tcode{b}可能并不能解引用。
 \exitnote
 
 \pnum
@@ -60,10 +60,10 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 这些情况下异值和非异值一样会被覆盖。可解引用的值一定是非异值。
 
 \pnum
-对于迭代器\tcode{i}和\tcode{j}，当且仅当有限次应用表达式\tcode{++i}后可以得到\tcode{i == j}时，称\tcode{i}可达\tcode{j}。\tcode{i}可达\tcode{j}可达喻示着它们指向同一序列的元素。
+对于迭代器\tcode{i}和\tcode{j}，当且仅当有限次应用表达式\tcode{++i}后可以得到\tcode{i==j}时，称\tcode{i}可达\tcode{j}。\tcode{i}可达\tcode{j}可达喻示它们指向同一序列的元素。
 
 \pnum
-本库大多数操作数据结构的算法模板都存在着使用范围的接口。\term{范围}是一对表示计算开始和计算结束的迭代器。范围\range{i}{i}是空范围；通常情况下，范围\range{i}{j}表示某一数据结构中\tcode{i}指向的元素到但不包括\tcode{j}指向的元素之间的所有元素。\range{i}{j}有效，当且仅当\tcode{i}可达\tcode{j}。将本库中的函数应用在无效的范围上，结果是未定义的。
+本库大多数操作数据结构的算法模板都存在使用范围的接口。\term{范围}是一对表示计算开始和计算结束的迭代器。范围\range{i}{i}是空范围；通常情况下，范围\range{i}{j}表示某一数据结构中\tcode{i}指向的元素到但不包括\tcode{j}指向的元素之间的所有元素。\range{i}{j}有效，当且仅当\tcode{i}可达\tcode{j}。将本库中的函数应用在无效的范围上，结果是未定义的。
 
 \pnum
 任何类型的迭代器上的函数都需要实现为（均摊）常数时间。因此，迭代器的需求表都不含复杂度列。
@@ -117,7 +117,7 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 如果类类型或指针类型\tcode{X}满足\tcode{Iterator}~(\ref{iterator.iterators})和\tcode{EqualityComparable}需求(表\ref{equalitycomparable})，并能使表\ref{tab:iterator.input.requirements}中的表达式都成立且语义与表指定的语义相同，那么\tcode{X}满足值类型\tcode{T}上的输入迭代器的需求。
 
 \pnum
-表\ref{tab:iterator.input.requirements}中，术语\techterm{\tcode{==}的域}就是在一般的数学层面上表示\tcode{==}（应该）定义在哪些值的集合上，这个集合可能随时不同。特定的算法需要迭代器的\tcode{==}域满足特定的需求，这些需求可能源于该算法用到了依赖\tcode{==}和\tcode{!=}的算法。
+表\ref{tab:iterator.input.requirements}中，术语\techterm{\tcode{==}的域}就是在一般的数学层面上表示\tcode{==}（应该）定义在哪些值的集合上，这个集合可能随时间变化。特定的算法需要迭代器的\tcode{==}域满足特定的需求，这些需求可能源于该算法用到了依赖\tcode{==}和\tcode{!=}的算法。
 \enterexample
 调用\tcode{find(a,b,x)}仅在\tcode{a}的值具有如下属性\textit{p}时有定义：
 \tcode{b}具有属性\textit{p}且当\tcode{(*i==x)}或\tcode{(*i!=x}且\tcode{++i}具有属性\textit{p})时\tcode{i}具有属性\textit{p}
@@ -156,7 +156,7 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
                                 &
  前提：\tcode{r}可解引用。\br
  后置：\tcode{r}可解引用或\tcode{r}为接尾值。\br
- 后置：\tcode{r}旧值的任何拷贝都不必再是可解引用的，或不必在\tcode{==}的域中。   \\ \rowsep
+ 后置：\tcode{r}旧值的任何拷贝都不必再是可解引用的或不必在\tcode{==}的域中。   \\ \rowsep
 
 \tcode{(void)r++}               &
                                 &
@@ -664,7 +664,7 @@ void reverse(BidirectionalIterator first, BidirectionalIterator last) {
 \rSec2[iterator.basic]{基本迭代器}
 
 \pnum
-\tcode{iterator}模板可以作为新建迭代器的基类减少其定义必要类型的工作量。
+\tcode{iterator}模板可作为新迭代器的基类减少其定义必备类型的工作量。
 
 \begin{codeblock}
 namespace std {
@@ -721,12 +721,12 @@ template<class T> struct iterator_traits<BinaryTreeIterator<T> > {
 };
 \end{codeblock}
 
-不过典型地，更简单的方法是从\tcode{iterator<bidirectional_iterator_tag,T,ptrdiff_t,T*,T\&>}继承\tcode{BinaryTreeIterator<T>}。
+不过典型地，更简单的方法是让\tcode{BinaryTreeIterator<T>}继承\tcode{iterator<bidirectional_iterator_tag,T,ptrdiff_t,T*,T\&>}。
 \exitexample
 
 \pnum
 \enterexample
-如果双向迭代器定义了\tcode{evolve()}，但随机访问迭代器上的\tcode{evolve()}可以实现得更加高效，那么可以如下实现：
+若双向迭代器上定义了\tcode{evolve()}，但随机访问迭代器上的\tcode{evolve()}可以实现得更加高效，那么可以如下实现：
 
 \begin{codeblock}
 template <class BidirectionalIterator>
@@ -739,13 +739,13 @@ evolve(BidirectionalIterator first, BidirectionalIterator last) {
 template <class BidirectionalIterator>
 void evolve(BidirectionalIterator first, BidirectionalIterator last,
   bidirectional_iterator_tag) {
-  // 更通用，但不是最高效的
+  // 更通用，但不是更高效的
 }
 
 template <class RandomAccessIterator>
 void evolve(RandomAccessIterator first, RandomAccessIterator last,
   random_access_iterator_tag) {
-  // 更高效，但不是最通用的
+  // 更高效，但不是更通用的
 }
 \end{codeblock}
 \exitexample
@@ -771,7 +771,7 @@ class MyIterator :
 \rSec2[iterator.operations]{迭代器操作}
 
 \pnum
-由于只有随机访问迭代器提供\tcode{+}和\tcode{-}操作符， 本库提供了两个函数模板\tcode{advance}和\tcode{distance}。这些函数模板对随机访问迭代器使用\tcode{+}和\tcode{-}（并且因此对于随机访问迭代器来说是常量时间）；对输入、前向和双向迭代器使用\tcode{++}提供线性时间的实现。
+为解决\tcode{+}操作符和\tcode{-}操作符只在随机访问迭代器上提供的问题， 本库提供了两个函数模板\tcode{advance}和\tcode{distance}。这些函数模板在随机访问迭代器上就使用\tcode{+}和\tcode{-}（并且因此对于随机访问迭代器来说是常量时间）；在输入、前向和双向迭代器上用\tcode{++}来提供线性时间的实现。
 
 \indexlibrary{\idxcode{advance}}%
 \begin{itemdecl}
@@ -782,7 +782,7 @@ template <class InputIterator, class Distance>
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{n}仅在双向迭代器和随机访问迭代器的情况下能为负值。
+\tcode{n}仅能在双向迭代器和随机访问迭代器的情况下为负值。
 
 \pnum
 \effects
@@ -799,11 +799,11 @@ template <class InputIterator>
 \begin{itemdescr}
 \pnum
 \effects
-如果\tcode{InputIterator}符合随机访问迭代器的需求，返回\tcode{(last - first)}；否则返回\tcode{first}递增到\tcode{last}需要的次数。
+若\tcode{InputIterator}符合随机访问迭代器的需求，返回\tcode{(last - first)}；否则返回\tcode{first}递增到\tcode{last}需要的次数。
 
 \pnum
 \requires
-如果\tcode{InputIterator}符合随机访问迭代器的需求，则\tcode{first}应可达\tcode{last}或\tcode{last}可达\tcode{first}；否则\tcode{first}应可达\tcode{last}。
+若\tcode{InputIterator}符合随机访问迭代器的需求，则\tcode{first}应可达\tcode{last}或\tcode{last}可达\tcode{first}；否则\tcode{first}应可达\tcode{last}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{next}}%
@@ -837,7 +837,7 @@ template <class BidirectionalIterator>
 \rSec2[reverse.iterators]{反向迭代器}
 
 \pnum
-类模板\tcode{reverse_iterator}是一种迭代器适配器，它的遍历顺序是从它的底层迭代器定义的序列尾遍历到序列头。反向迭代器和它对应的迭代器\tcode{i}之间的基本关系建立在标志：\tcode{\&*(reverse_iterator(i)) == \&*(i - 1)}上。
+类模板\tcode{reverse_iterator}是一种迭代器适配器，它的遍历顺序是从它底层迭代器定义的序列尾遍历到序列头。反向迭代器和它对应的迭代器\tcode{i}之间的基本关系的建立标志是：\tcode{\&*(reverse_iterator(i)) == \&*(i - 1)}上。
 
 \rSec3[reverse.iterator]{\tcode{reverse_iterator}类模板}
 
