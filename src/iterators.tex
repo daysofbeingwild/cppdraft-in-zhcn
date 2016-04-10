@@ -837,7 +837,7 @@ template <class BidirectionalIterator>
 \rSec2[reverse.iterators]{反向迭代器}
 
 \pnum
-类模板\tcode{reverse_iterator}是一种迭代器适配器，它的遍历顺序是从它底层迭代器定义的序列尾遍历到序列头。反向迭代器和它对应的迭代器\tcode{i}之间的基本关系的建立标志是：\tcode{\&*(reverse_iterator(i)) == \&*(i - 1)}上。
+类模板\tcode{reverse_iterator}是一种迭代器适配器，它的遍历顺序是从它底层迭代器定义的序列尾遍历到序列头。反向迭代器和它对应的迭代器\tcode{i}之间的基本关系的建立标志是：\tcode{\&*(reverse_iterator(i)) == \&*(i - 1)}。
 
 \rSec3[reverse.iterator]{\tcode{reverse_iterator}类模板}
 
@@ -921,7 +921,7 @@ namespace std {
 模板参数\tcode{Iterator}应符合双向迭代器(\ref{bidirectional.iterators})的所有需求。
 
 \pnum
-另外，当\tcode{Iterator}的以下成员：
+另外，当\tcode{Iterator}的成员：
 \tcode{operator+}~(\ref{reverse.iter.op+})、
 \tcode{operator-}~(\ref{reverse.iter.op-})、
 \tcode{operator+=}~(\ref{reverse.iter.op+=})、
@@ -934,7 +934,7 @@ namespace std {
 \tcode{operator>=}~(\ref{reverse.iter.op>=})、
 \tcode{operator-}~(\ref{reverse.iter.opdiff})或
 \tcode{operator+}~(\ref{reverse.iter.opsum})
-中的任何一个被引用而需要实例化(\ref{temp.inst})时，
+中的任何一个因被引用而需要实例化(\ref{temp.inst})时，
 \tcode{Iterator}应符合随机访问迭代器(\ref{random.access.iterators})的需求。
 
 \rSec3[reverse.iter.ops]{\tcode{reverse_iterator}操作}
@@ -1334,9 +1334,9 @@ template <class Iterator>
 while (first != last) *result++ = *first++;
 \end{codeblock}
 
-会导致范围\range{first}{last}拷贝至result开始的范围。
-同一份代码，如果\tcode{result}是插入迭代器，则会将对应的元素插入到容器。
-这种手段允许本库所有拷贝算法以\techterm{插入模式}而不是\techterm{常规覆盖}模式工作。
+会将范围\range{first}{last}拷贝至result开始的范围。
+同一份代码，如果\tcode{result}是插入迭代器，则是将对应的元素插入到容器。
+这种手段允许本库所有拷贝算法以\techterm{插入模式}而不是\techterm{正常的覆盖}模式工作。
 
 \pnum
 构造插入迭代器需要指定一个容器，如果要插入的地方既不是容器的头部又不是容器的尾部，可以在构造时指定指向容器要插入的地方的迭代器。插入迭代器满足输出迭代器的需求。\tcode{operator*}返回插入迭代器自身。插入迭代器定义了赋值操作\tcode{operator=(const T\& x)}以用来向它们写入，该赋值操作将\tcode{x}插入在插入迭代器指向的地方前。换句话说，插入迭代器就像光标一样指向容器将要插入的位置。\tcode{back_insert_iterator}将元素插入容器的尾部，\tcode{front_insert_iterator}将元素插入容器的头部，\tcode{insert_iterator}将元素插入其指向的容器位置。\tcode{back_inserter}、\tcode{front_inserter}和\tcode{inserter}是三个脱离容器构造插入迭代器的函数。
