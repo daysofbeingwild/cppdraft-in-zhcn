@@ -99,12 +99,12 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 {tab:iterator.requirements}
 \\ \topline
 \lhdr{表达式}	&   \chdr{返回类型}  &	\chdr{操作语义}  &		\rhdr{断言/注}       \\
-				&					&					&		\rhdr{前提/后设}   \\ \capsep
+				&					&					&		\rhdr{前提/后置}   \\ \capsep
 \endfirsthead
 \continuedcaption\\
 \hline
 \lhdr{表达式}	&	\chdr{返回类型}		&	\chdr{操作}	&		\rhdr{断言/注}       \\
-                &                    &   \chdr{语义}      &   \rhdr{前提/后设}   \\ \capsep
+                &                    &   \chdr{语义}      &   \rhdr{前提/后置}   \\ \capsep
 \endhead
 
 \tcode{*r}      &   未规定           &                    &   前提：\tcode{r}可解引用。  \\ \rowsep
@@ -128,12 +128,12 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 {tab:iterator.input.requirements}
 \\ \topline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-                    &                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+                    &                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endfirsthead
 \continuedcaption\\
 \hline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-                    &                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+                    &                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endhead
 \tcode{a != b}                  &
  可根据上下文转换为\tcode{bool}    &
@@ -155,8 +155,8 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
  \tcode{X\&}                    &
                                 &
  前提：\tcode{r}可解引用。\br
- 后设：\tcode{r}可解引用或\tcode{r}为接尾值。\br
- 后设：\tcode{r}旧值的任何拷贝都不必再是可解引用的，或不必在\tcode{==}的域中。   \\ \rowsep
+ 后置：\tcode{r}可解引用或\tcode{r}为接尾值。\br
+ 后置：\tcode{r}旧值的任何拷贝都不必再是可解引用的，或不必在\tcode{==}的域中。   \\ \rowsep
 
 \tcode{(void)r++}               &
                                 &
@@ -185,25 +185,25 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 {tab:iterator.output.requirements}
 \\ \topline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-&                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+&                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endfirsthead
 \continuedcaption\\
 \hline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-&                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+&                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endhead
 \tcode{*r = o}      &
  值不被使用 &
                     &
  \remark\ 此操作后\tcode{r}无需可解引用。\br
- 后设：\tcode{r}可递增。\\ \rowsep
+ 后置：\tcode{r}可递增。\\ \rowsep
 
 \tcode{++r}         &
  \tcode{X\&}        &
                     &
  \tcode{\&r == \&++r}。\br
  \remark\ 此操作后\tcode{r}无需可解引用。\br
- 后设：\tcode{r}可递增。\\ \rowsep
+ 后置：\tcode{r}可递增。\\ \rowsep
 
 \tcode{r++}         &
  可转换为\tcode{const X\&}   &
@@ -211,12 +211,12 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
  \tcode{  ++r;}\br
  \tcode{  return tmp; \}}   &
  \remark\ 此操作后\tcode{r}无需可解引用。\br
- 后设：\tcode{r}可递增。\\ \rowsep
+ 后置：\tcode{r}可递增。\\ \rowsep
 
 \tcode{*r++ = o}    &
  值不被使用 &&
  \remark\ 此操作后\tcode{r}无需可解引用。\br
- 后设：\tcode{r}可递增。\\
+ 后置：\tcode{r}可递增。\\
 \end{libreqtab4b}
 
 \pnum
@@ -263,12 +263,12 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 {tab:iterator.forward.requirements}
 \\ \topline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-&                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+&                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endfirsthead
 \continuedcaption\\
 \hline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-&                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+&                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endhead
 \tcode{r++}         &
  可转换为\tcode{const X\&}   &
@@ -296,18 +296,18 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 {tab:iterator.bidirectional.requirements}
 \\ \topline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-&                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+&                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endfirsthead
 \continuedcaption\\
 \hline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-&                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+&                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endhead
 \tcode{\dcr r}      &
  \tcode{X\&}        &
                     &
  前提：存在\tcode{s}使得\tcode{r == ++s}。\br
- 后设：\tcode{r}可解引用。\br
+ 后置：\tcode{r}可解引用。\br
  \tcode{\dcr(++r) == r}。\br
  \tcode{\dcr r == \dcr s}隐含\tcode{r == s}。\br
  \tcode{\&r == \&\dcr r}。  \\ \hline
@@ -337,12 +337,12 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 {tab:iterator.random.access.requirements}
 \\ \topline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-&                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+&                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endfirsthead
 \continuedcaption\\
 \hline
 \lhdr{表达式}   &   \chdr{返回类型}  &   \chdr{操作}  &   \rhdr{断言/注}       \\
-&                       &   \chdr{语义}    &   \rhdr{前提/后设}   \\ \capsep
+&                       &   \chdr{语义}    &   \rhdr{前提/后置}   \\ \capsep
 \endhead
 \tcode{r += n}      &
  \tcode{X\&}        &
@@ -949,7 +949,7 @@ constexpr reverse_iterator();
 \begin{itemdescr}
 \pnum
 \effects
-将\tcode{current}做值初始化。作用在结果迭代器上的迭代器操作行为有定义，当且仅当做过值初始化的\tcode{Iterator}类型的迭代器在对应的操作上有定义。
+将\tcode{current}做值初始化。这种方式构造出的迭代器在某个操作上有明确定义的行为的充要条件是做过值初始化的\tcode{Iterator}类型的迭代器在对应的操作上有定义。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{reverse_iterator}!constructor}%
@@ -961,7 +961,7 @@ constexpr explicit reverse_iterator(Iterator x);
 \begin{itemdescr}
 \pnum
 \effects
-将\tcode{current}初始化为\tcode{x}。
+以\tcode{x}初始化\tcode{current}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{reverse_iterator}!constructor}%
@@ -973,7 +973,7 @@ template <class U> constexpr reverse_iterator(const reverse_iterator<U> &u);
 \begin{itemdescr}
 \pnum
 \effects
-将\tcode{current}初始化为\tcode{u.current}。
+以\tcode{u.current}初始化\tcode{current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op=]{\tcode{reverse_iterator::operator=}}
@@ -992,7 +992,7 @@ constexpr reverse_iterator&
 
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.conv]{转换}
@@ -1006,7 +1006,7 @@ constexpr Iterator base() const;          // explicit
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{current}.
+\tcode{current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op.star]{\tcode{operator*}}
@@ -1035,7 +1035,7 @@ constexpr pointer operator->() const;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{std::addressof(operator*())}.
+\returns \tcode{std::addressof(operator*())}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op++]{\tcode{operator++}}
@@ -1052,7 +1052,7 @@ constexpr reverse_iterator& operator++();
 
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator++}!\idxcode{reverse_iterator}}%
@@ -1085,7 +1085,7 @@ constexpr reverse_iterator& operator--();
 
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator\dcr}!\idxcode{reverse_iterator}}%
@@ -1115,7 +1115,7 @@ operator+(typename reverse_iterator<Iterator>::difference_type n) const;
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{reverse_iterator(current-n)}.
+\tcode{reverse_iterator(current-n)}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op+=]{\tcode{operator+=}}
@@ -1133,7 +1133,7 @@ operator+=(typename reverse_iterator<Iterator>::difference_type n);
 
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op-]{\tcode{operator-}}
@@ -1147,7 +1147,7 @@ operator-(typename reverse_iterator<Iterator>::difference_type n) const;
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{reverse_iterator(current+n)}.
+\tcode{reverse_iterator(current+n)}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op-=]{\tcode{operator-=}}
@@ -1165,7 +1165,7 @@ operator-=(typename reverse_iterator<Iterator>::difference_type n);
 
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.opindex]{\tcode{operator[]}}
@@ -1179,7 +1179,7 @@ constexpr @\unspec@ operator[](
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{current[-n-1]}.
+\tcode{current[-n-1]}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op==]{\tcode{operator==}}
@@ -1195,7 +1195,7 @@ template <class Iterator1, class Iterator2>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{x.current == y.current}.
+\tcode{x.current == y.current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op<]{\tcode{operator<}}
@@ -1211,7 +1211,7 @@ template <class Iterator1, class Iterator2>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{x.current > y.current}.
+\tcode{x.current > y.current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op!=]{\tcode{operator!=}}
@@ -1227,7 +1227,7 @@ template <class Iterator1, class Iterator2>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{x.current != y.current}.
+\tcode{x.current != y.current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op>]{\tcode{operator>}}
@@ -1243,7 +1243,7 @@ template <class Iterator1, class Iterator2>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{x.current < y.current}.
+\tcode{x.current < y.current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op>=]{\tcode{operator>=}}
@@ -1259,7 +1259,7 @@ template <class Iterator1, class Iterator2>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{x.current <= y.current}.
+\tcode{x.current <= y.current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.op<=]{\tcode{operator<=}}
@@ -1275,7 +1275,7 @@ template <class Iterator1, class Iterator2>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{x.current >= y.current}.
+\tcode{x.current >= y.current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.opdiff]{\tcode{operator-}}
@@ -1291,7 +1291,7 @@ template <class Iterator1, class Iterator2>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{y.current - x.current}.
+\tcode{y.current - x.current}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.opsum]{\tcode{operator+}}
@@ -1307,7 +1307,7 @@ template <class Iterator>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{reverse_iterator<Iterator> (x.current - n)}.
+\tcode{reverse_iterator<Iterator> (x.current - n)}。
 \end{itemdescr}
 
 \rSec4[reverse.iter.make]{非成员函数\tcode{make_reverse_iterator()}}
@@ -1322,7 +1322,7 @@ template <class Iterator>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{reverse_iterator<Iterator>(i)}.
+\tcode{reverse_iterator<Iterator>(i)}。
 \end{itemdescr}
 
 \rSec2[insert.iterators]{插入迭代器}
@@ -1800,7 +1800,7 @@ namespace std {
 \rSec3[move.iter.requirements]{\tcode{move_iterator}需求}
 
 \pnum
-模板参数\tcode{Iterator}应该符合输入迭代器的需求(\ref{input.iterators})。此外，如果实例化了任何双向遍历或随机访问遍历函数，模板参数\tcode{Iterator}还应分别符合双向迭代器(\ref{bidirectional.iterators})或随机访问器(\ref{random.access.iterators})的需求。
+模板参数\tcode{Iterator}应符合输入迭代器的需求(\ref{input.iterators})。此外，如果实例化了任何双向遍历或随机访问遍历函数，模板参数\tcode{Iterator}还应分别符合双向迭代器(\ref{bidirectional.iterators})或随机访问器(\ref{random.access.iterators})的需求。
 
 \rSec3[move.iter.ops]{\tcode{move_iterator}操作}
 
@@ -1813,7 +1813,7 @@ constexpr move_iterator();
 
 \begin{itemdescr}
 \pnum
-\effects 构造\tcode{move_iterator}，将\tcode{current}做值初始化。作用在结果迭代器上的迭代器操作行为有定义，当且仅当做过值初始化的\tcode{Iterator}类型的迭代器在对应的操作上有定义。
+\effects 构造\tcode{move_iterator}，将\tcode{current}做值初始化。这种方式构造出的迭代器在某个操作上有明确定义的行为的充要条件是做过值初始化的\tcode{Iterator}类型的迭代器在对应的操作上有定义。
 \end{itemdescr}
 
 
@@ -1840,7 +1840,7 @@ template <class U> constexpr move_iterator(const move_iterator<U>& u);
 构造\tcode{move_iterator}，以\tcode{u.base()} 初始化\tcode{current}。
 
 \pnum
-\requires \tcode{U} 应能转换为\tcode{Iterator}.
+\requires \tcode{U} 应能转换为\tcode{Iterator}。
 \end{itemdescr}
 
 \rSec4[move.iter.op=]{\tcode{move_iterator::operator=}}
@@ -1853,11 +1853,10 @@ template <class U> constexpr move_iterator& operator=(const move_iterator<U>& u)
 
 \begin{itemdescr}
 \pnum
-\effects 将\tcode{u.base()}赋值给\tcode{current}.
+\effects 将\tcode{u.base()}赋值给\tcode{current}。
 
 \pnum
-\requires \tcode{U} shall be convertible to
-\tcode{Iterator}.
+\requires \tcode{U}应能转换为\tcode{Iterator}。
 \end{itemdescr}
 
 \rSec4[move.iter.op.conv]{\tcode{move_iterator}转换}
@@ -1870,7 +1869,7 @@ constexpr Iterator base() const;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{current}.
+\returns \tcode{current}。
 \end{itemdescr}
 
 \rSec4[move.iter.op.star]{\tcode{move_iterator::operator*}}
@@ -1883,7 +1882,7 @@ constexpr reference operator*() const;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{static_cast<reference>(*current)}.
+\returns \tcode{static_cast<reference>(*current)}。
 \end{itemdescr}
 
 \rSec4[move.iter.op.ref]{\tcode{move_iterator::operator->}}
@@ -1896,7 +1895,7 @@ constexpr pointer operator->() const;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{current}.
+\returns \tcode{current}。
 \end{itemdescr}
 
 \rSec4[move.iter.op.incr]{\tcode{move_iterator::operator++}}
@@ -1909,10 +1908,10 @@ constexpr move_iterator& operator++();
 
 \begin{itemdescr}
 \pnum
-\effects \tcode{++current}.
+\effects \tcode{++current}。
 
 \pnum
-\returns \tcode{*this}.
+\returns \tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator++}!\idxcode{move_iterator}}%
@@ -1941,10 +1940,10 @@ constexpr move_iterator& operator--();
 
 \begin{itemdescr}
 \pnum
-\effects \tcode{\dcr{}current}.
+\effects \tcode{\dcr{}current}。
 
 \pnum
-\returns \tcode{*this}.
+\returns \tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator\dcr}!\idxcode{move_iterator}}%
@@ -1973,7 +1972,7 @@ constexpr move_iterator operator+(difference_type n) const;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{move_iterator(current + n)}.
+\returns \tcode{move_iterator(current + n)}。
 \end{itemdescr}
 
 \rSec4[move.iter.op.+=]{\tcode{move_iterator::operator+=}}
@@ -1986,10 +1985,10 @@ constexpr move_iterator& operator+=(difference_type n);
 
 \begin{itemdescr}
 \pnum
-\effects \tcode{current += n}.
+\effects \tcode{current += n}。
 
 \pnum
-\returns \tcode{*this}.
+\returns \tcode{*this}。
 \end{itemdescr}
 
 \rSec4[move.iter.op.-]{\tcode{move_iterator::operator-}}
@@ -2002,7 +2001,7 @@ constexpr move_iterator operator-(difference_type n) const;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{move_iterator(current - n)}.
+\returns \tcode{move_iterator(current - n)}。
 \end{itemdescr}
 
 \rSec4[move.iter.op.-=]{\tcode{move_iterator::operator-=}}
@@ -2015,10 +2014,10 @@ constexpr move_iterator& operator-=(difference_type n);
 
 \begin{itemdescr}
 \pnum
-\effects \tcode{current -= n}.
+\effects \tcode{current -= n}。
 
 \pnum
-\returns \tcode{*this}.
+\returns \tcode{*this}。
 \end{itemdescr}
 
 \rSec4[move.iter.op.index]{\tcode{move_iterator::operator[]}}
@@ -2031,7 +2030,7 @@ constexpr @\unspec@ operator[](difference_type n) const;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{std::move(}current[n]).
+\returns \tcode{std::move(}current[n])。
 \end{itemdescr}
 
 \rSec4[move.iter.op.comp]{\tcode{move_iterator}比较}
@@ -2045,7 +2044,7 @@ constexpr bool operator==(const move_iterator<Iterator1>& x, const move_iterator
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{x.base() == y.base()}.
+\returns \tcode{x.base() == y.base()}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator"!=}!\idxcode{move_iterator}}%
@@ -2057,7 +2056,7 @@ constexpr bool operator!=(const move_iterator<Iterator1>& x, const move_iterator
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{!(x == y)}.
+\returns \tcode{!(x == y)}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator<}!\idxcode{move_iterator}}%
@@ -2069,7 +2068,7 @@ constexpr bool operator<(const move_iterator<Iterator1>& x, const move_iterator<
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{x.base() < y.base()}.
+\returns \tcode{x.base() < y.base()}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator<=}!\idxcode{move_iterator}}%
@@ -2081,7 +2080,7 @@ constexpr bool operator<=(const move_iterator<Iterator1>& x, const move_iterator
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{!(y < x)}.
+\returns \tcode{!(y < x)}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator>}!\idxcode{move_iterator}}%
@@ -2093,7 +2092,7 @@ constexpr bool operator>(const move_iterator<Iterator1>& x, const move_iterator<
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{y < x}.
+\returns \tcode{y < x}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator>=}!\idxcode{move_iterator}}%
@@ -2105,7 +2104,7 @@ constexpr bool operator>=(const move_iterator<Iterator1>& x, const move_iterator
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{!(x < y)}.
+\returns \tcode{!(x < y)}。
 \end{itemdescr}
 
 \rSec4[move.iter.nonmember]{\tcode{move_iterator}非成员函数}
@@ -2121,7 +2120,7 @@ template <class Iterator1, class Iterator2>
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{x.base() - y.base()}.
+\returns \tcode{x.base() - y.base()}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator+}!\idxcode{move_iterator}}%
@@ -2134,7 +2133,7 @@ template <class Iterator>
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{x + n}.
+\returns \tcode{x + n}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{make_move_iterator}}%
@@ -2145,16 +2144,13 @@ constexpr move_iterator<Iterator> make_move_iterator(Iterator i);
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{move_iterator<Iterator>(i)}.
+\returns \tcode{move_iterator<Iterator>(i)}。
 \end{itemdescr}
 
-\rSec1[stream.iterators]{Stream iterators}
+\rSec1[stream.iterators]{流迭代器}
 
 \pnum
-To make it possible for algorithmic templates to work directly with input/output streams, appropriate
-iterator-like
-class templates
-are provided.
+为使算法模板能直接工作在输入/输出流上，类似迭代器的类模板被适时提上案。
 
 \enterexample
 \begin{codeblock}
@@ -2163,59 +2159,17 @@ partial_sum(istream_iterator<double, char>(cin),
   ostream_iterator<double, char>(cout, "@\textbackslash@n"));
 \end{codeblock}
 
-reads a file containing floating point numbers from
-\tcode{cin},
-and prints the partial sums onto
-\tcode{cout}.
+从文件\tcode{cin}读取浮点数并将部分和打印到\tcode{cout}。
 \exitexample
 
-\rSec2[istream.iterator]{Class template \tcode{istream_iterator}}
+\rSec2[istream.iterator]{类模板\tcode{istream_iterator}}
 
 \pnum
 \indexlibrary{\idxcode{istream_iterator}}%
-The class template
-\tcode{istream_iterator}
-is an input iterator~(\ref{input.iterators}) that
-reads (using
-\tcode{operator\shr})
-successive elements from the input stream for which it was constructed.
-After it is constructed, and every time
-\tcode{++}
-is used, the iterator reads and stores a value of
-\tcode{T}.
-If the iterator fails to read and store a value of \tcode{T}
-(\tcode{fail()}
-on the stream returns
-\tcode{true}),
-the iterator becomes equal to the
-\term{end-of-stream}
-iterator value.
-The constructor with no arguments
-\tcode{istream_iterator()}
-always constructs
-an end-of-stream input iterator object, which is the only legitimate iterator to be used
-for the end condition.
-The result of
-\tcode{operator*}
-on an end-of-stream iterator is not defined.
-For any other iterator value a
-\tcode{const T\&}
-is returned.
-The result of
-\tcode{operator->}
-on an end-of-stream iterator is not defined.
-For any other iterator value a
-\tcode{const T*}
-is returned.
-The behavior of a program that applies \tcode{operator++()} to an end-of-stream
-iterator is undefined.
-It is impossible to store things into istream iterators.
+类模板\tcode{istream_iterator}是一种输入迭代器(\ref{input.iterators})，它从构造它的输入流中（用\tcode{operator\shr}）读取相继的元素。构造后，每次使用\tcode{++}都会读取并存储一个T类型的值。如果迭代器读取或存储T类型的值失败（流上的\tcode{fail()}返回\tcode{true}），该迭代器的值变为\term{流末端}。无参构造函数\tcode{istream_iterator()}构造出的对象就是值为流末端的输入迭代器，流末端迭代器仅仅用作结束条件时有效。流末端迭代器上的\tcode{operator*}的结果是未定义的，非流末端迭代器上的\tcode{operator*}会返回一个\tcode{const T\&}。流末端迭代器上的\tcode{operator->}的结果是未定义的，非流末端迭代器上的\tcode{operator->}会返回一个\tcode{const T*}。程序在流末端迭代器上调用\tcode{operator++()}属于未定义行为。从来不要、也不可能向输入流迭代器中存储值。
 
 \pnum
-Two end-of-stream iterators are always equal.
-An end-of-stream iterator is not
-equal to a non-end-of-stream iterator.
-Two non-end-of-stream iterators are equal when they are constructed from the same stream.
+两个流末端迭代器永远相等；流末端迭代器和非流末端迭代器永远不等；两个非流末端迭代器构造自同一流时相等。
 
 \begin{codeblock}
 namespace std {
@@ -2254,7 +2208,7 @@ namespace std {
 }
 \end{codeblock}
 
-\rSec3[istream.iterator.cons]{\tcode{istream_iterator} constructors and destructor}
+\rSec3[istream.iterator.cons]{\tcode{istream_iterator}构造函数和析构函数}
 
 
 \indexlibrary{\idxcode{istream_iterator}!constructor}%
@@ -2265,11 +2219,10 @@ namespace std {
 \begin{itemdescr}
 \pnum
 \effects
-Constructs the end-of-stream iterator. If \tcode{T} is a literal type, then this
-constructor shall be a \tcode{constexpr} constructor.
+构造一个流末端迭代器。如果\tcode{T}是literal类型，该构造函数应为\tcode{constexpr}构造函数。
 
 \pnum
-\postcondition \tcode{in_stream == 0}.
+\postcondition \tcode{in_stream == 0}。
 \end{itemdescr}
 
 
@@ -2281,12 +2234,10 @@ istream_iterator(istream_type& s);
 \begin{itemdescr}
 \pnum
 \effects
-Initializes \textit{in_stream} with \tcode{addressof(s)}.
-\textit{value} may be initialized during
-construction or the first time it is referenced.
+以\tcode{addressof(s)}初始化\textit{in_stream}。\textit{value}可以在构造时初始化，也可以在第一次被引用时初始化。
 
 \pnum
-\postcondition \tcode{in_stream == addressof(s)}.
+\postcondition \tcode{in_stream == addressof(s)}。
 \end{itemdescr}
 
 
@@ -2298,10 +2249,10 @@ istream_iterator(const istream_iterator& x) = default;
 \begin{itemdescr}
 \pnum
 \effects
-Constructs a copy of \tcode{x}. If \tcode{T} is a literal type, then this constructor shall be a trivial copy constructor.
+构造一份\tcode{x}的副本。如果\tcode{T}是literal类型，该构造函数应为传统拷贝构造函数。
 
 \pnum
-\postcondition \tcode{in_stream == x.in_stream}.
+\postcondition \tcode{in_stream == x.in_stream}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{istream_iterator}!destructor}%
@@ -2312,10 +2263,10 @@ Constructs a copy of \tcode{x}. If \tcode{T} is a literal type, then this constr
 \begin{itemdescr}
 \pnum
 \effects
-The iterator is destroyed. If \tcode{T} is a literal type, then this destructor shall be a trivial destructor.
+销毁该迭代器。如果\tcode{T}是literal类型，该析构函数应为传统析构函数。
 \end{itemdescr}
 
-\rSec3[istream.iterator.ops]{\tcode{istream_iterator} operations}
+\rSec3[istream.iterator.ops]{\tcode{istream_iterator}操作}
 
 \indexlibrary{\idxcode{operator*}!\idxcode{istream_iterator}}%
 \indexlibrary{\idxcode{istream_iterator}!\idxcode{operator*}}%
@@ -2326,7 +2277,7 @@ const T& operator*() const;
 \begin{itemdescr}
 \pnum
 \returns
-\textit{value}.
+\textit{value}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator->}!\idxcode{istream_iterator}}%
@@ -2338,7 +2289,7 @@ const T* operator->() const;
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{addressof(operator*())}.
+\tcode{addressof(operator*())}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator++}!\idxcode{istream_iterator}}%
@@ -2349,15 +2300,15 @@ istream_iterator& operator++();
 
 \begin{itemdescr}
 \pnum
-\requires \tcode{in_stream != 0}.
+\requires \tcode{in_stream != 0}。
 
 \pnum
 \effects
-\tcode{*in_stream \shr value}.
+\tcode{*in_stream \shr value}
 
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator++}!\idxcode{istream_iterator}}%
@@ -2368,7 +2319,7 @@ istream_iterator operator++(int);
 
 \begin{itemdescr}
 \pnum
-\requires \tcode{in_stream != 0}.
+\requires \tcode{in_stream != 0}。
 
 \pnum
 \effects
@@ -2390,7 +2341,7 @@ template <class T, class charT, class traits, class Distance>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{x.in_stream == y.in_stream}.%
+\tcode{x.in_stream == y.in_stream}。
 \indexlibrary{\idxcode{istream_iterator}!\idxcode{operator==}}
 \end{itemdescr}
 
@@ -2402,30 +2353,18 @@ template <class T, class charT, class traits, class Distance>
                   const istream_iterator<T,charT,traits,Distance> &y);
 \end{itemdecl}
 
-\indexlibrary{\idxcode{istream_iterator}!\idxcode{operator"!=}}%
+\indexlibrary{\idxcode{istream_iterator}!\idxcode{operator"!=}}
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{!(x == y)}
+\tcode{!(x == y)}。
 \end{itemdescr}
 
-\rSec2[ostream.iterator]{Class template \tcode{ostream_iterator}}
+\rSec2[ostream.iterator]{类模板\tcode{ostream_iterator}}
 
 \pnum
 \indexlibrary{\idxcode{ostream_iterator}}%
-\tcode{ostream_iterator}
-writes (using
-\tcode{operator\shl})
-successive elements onto the output stream from which it was constructed.
-If it was constructed with
-\tcode{charT*}
-as a constructor argument, this string, called a
-\term{delimiter string},
-is written to the stream after every
-\tcode{T}
-is written.
-It is not possible to get a value out of the output iterator.
-Its only use is as an output iterator in situations like
+\tcode{ostream_iterator}向构造它的输出流中（用\tcode{operator\shl}）写入相继的元素。若\tcode{ostream_iterator}构造时用到了构造函数参数\tcode{charT*}，该字符串（称为\term{分界串}）会在每次写入\tcode{T}后写入流。从来不要、也不可能从输出迭代器中读取值。\tcode{ostream_iterator}的唯一用处是作为输出迭代器应用在类似于以下情况的场合中：
 
 \begin{codeblock}
 while (first != last)
@@ -2433,8 +2372,7 @@ while (first != last)
 \end{codeblock}
 
 \pnum
-\tcode{ostream_iterator}
-is defined as:
+\tcode{ostream_iterator}定义为：
 
 \begin{codeblock}
 namespace std {
@@ -2465,7 +2403,7 @@ namespace std {
 }
 \end{codeblock}
 
-\rSec3[ostream.iterator.cons.des]{\tcode{ostream_iterator} constructors and destructor}
+\rSec3[ostream.iterator.cons.des]{\tcode{ostream_iterator}构造函数和析构函数}
 
 
 \indexlibrary{\idxcode{ostream_iterator}!constructor}%
@@ -2476,8 +2414,7 @@ ostream_iterator(ostream_type& s);
 \begin{itemdescr}
 \pnum
 \effects
-Initializes \textit{out_stream} with \tcode{addressof(s)} and
-\textit{delim} with null.
+以\tcode{addressof(s)}初始化\textit{out_stream}，以空初始化\textit{delim}。
 \end{itemdescr}
 
 
@@ -2489,8 +2426,7 @@ ostream_iterator(ostream_type& s, const charT* delimiter);
 \begin{itemdescr}
 \pnum
 \effects
-Initializes \textit{out_stream} with \tcode{addressof(s)} and
-\textit{delim} with \tcode{delimiter}.
+以\tcode{addressof(s)}初始化\textit{out_stream}，以\tcode{delimiter}初始化\textit{delim}。
 \end{itemdescr}
 
 
@@ -2502,7 +2438,7 @@ ostream_iterator(const ostream_iterator& x);
 \begin{itemdescr}
 \pnum
 \effects
-Constructs a copy of \tcode{x}.
+构造一份\tcode{x}的副本。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{ostream_iterator}!destructor}%
@@ -2513,10 +2449,10 @@ Constructs a copy of \tcode{x}.
 \begin{itemdescr}
 \pnum
 \effects
-The iterator is destroyed.
+销毁该迭代器。
 \end{itemdescr}
 
-\rSec3[ostream.iterator.ops]{\tcode{ostream_iterator} operations}
+\rSec3[ostream.iterator.ops]{\tcode{ostream_iterator}操作}
 
 \indexlibrary{\idxcode{operator=}!\idxcode{ostream_iterator}}%
 \indexlibrary{\idxcode{ostream_iterator}!\idxcode{operator=}}%
@@ -2544,7 +2480,7 @@ ostream_iterator& operator*();
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator++}!\idxcode{ostream_iterator}}%
@@ -2557,48 +2493,19 @@ ostream_iterator& operator++(int);
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
-\rSec2[istreambuf.iterator]{Class template \tcode{istreambuf_iterator}}
+\rSec2[istreambuf.iterator]{类模板\tcode{istreambuf_iterator}}
 
 \pnum
-The
-class template
-\tcode{istreambuf_iterator}
-defines an input iterator~(\ref{input.iterators}) that
-reads successive
-\textit{characters}
-from the streambuf for which it was constructed.
-\tcode{operator*}
-provides access to the current input character, if any.
-\enternote \tcode{operator->} may return a proxy. \exitnote
-Each time
-\tcode{operator++}
-is evaluated, the iterator advances to the next input character.
-If the end of stream is reached (\tcode{streambuf_type::sgetc()} returns
-\tcode{traits::eof()}),
-the iterator becomes equal to the
-\term{end-of-stream}
-iterator value.
-The default constructor
-\tcode{istreambuf_iterator()}
-and the constructor
-\tcode{istreambuf_iterator(0)}
-both construct an end-of-stream iterator object suitable for use
-as an end-of-range.
-All specializations of \tcode{istreambuf_iterator} shall have a trivial copy
-constructor, a \tcode{constexpr} default constructor, and a trivial destructor.
+类模板\tcode{istreambuf_iterator}是一种输入迭代器(\ref{input.iterators})，它从构造它的流缓冲区中读取相继的\textit{字符}。\tcode{operator*}提供对当前输入字符（如果有的话）的访问。
+\enternote \tcode{operator->}可能返回一个proxy。 \exitnote
+每次调用\tcode{operator++}迭代器都会步进至下一个输入字符。如果到达了流的末端（\tcode{streambuf_type::sgetc()}返回\tcode{traits::eof()}），该迭代器的值变为\term{流末端}。默认构造函数\tcode{istreambuf_iterator()}和构造函数\tcode{istreambuf_iterator(0)}都可以构造出流末端迭代器对象，用作范围结尾。\tcode{istreambuf_iterator}的任何特化都应该存在一个传统拷贝构造函数、一个\tcode{constexpr}构造函数和一个传统析构函数。
 
 \pnum
-The result of
-\tcode{operator*()}
-on an end-of-stream iterator is undefined.
-\indextext{behavior!undefined}%
-For any other iterator value a
-\tcode{char_type}
-value is returned.
-It is impossible to assign a character via an input iterator.
+流末端迭代器上的\tcode{operator*}的结果是未定义的。\indextext{behavior!undefined}%
+非流末端迭代器上的\tcode{operator*}会返回一个\tcode{char_type}值。从来不要、也不可能通过输入迭代器赋值字符。
 
 \indexlibrary{\idxcode{istreambuf_iterator}}%
 \begin{codeblock}
@@ -2643,7 +2550,7 @@ namespace std {
 }
 \end{codeblock}
 
-\rSec3[istreambuf.iterator::proxy]{Class template \tcode{istreambuf_iterator::proxy}}
+\rSec3[istreambuf.iterator::proxy]{类模板\tcode{istreambuf_iterator::proxy}}
 
 \indexlibrary{\idxcode{proxy}!\idxcode{istreambuf_iterator}}%
 \begin{codeblock}
@@ -2661,20 +2568,9 @@ namespace std {
 \end{codeblock}
 
 \pnum
-Class
-\tcode{istreambuf_iterator<charT,traits>::proxy}
-is for exposition only.
-An implementation is permitted to provide equivalent functionality without
-providing a class with this name.
-Class
-\tcode{istreambuf_iterator<charT, traits>\colcol{}proxy}
-provides a temporary
-placeholder as the return value of the post-increment operator
-(\tcode{operator++}).
-It keeps the character pointed to by the previous value
-of the iterator for some possible future access to get the character.
+类\tcode{istreambuf_iterator<charT,traits>::proxy}仅作展示。实现不一定非要用此名字的类提供等价的功能。类\tcode{istreambuf_iterator<charT, traits>\colcol{}proxy}提供了一个临时的占位符作为后自增操作符(\tcode{operator++})的返回值。它保存了迭代器前一个值指向的字符，以便日后可能需要获取该字符之用。
 
-\rSec3[istreambuf.iterator.cons]{\tcode{istreambuf_iterator} constructors}
+\rSec3[istreambuf.iterator.cons]{\tcode{istreambuf_iterator}构造函数}
 
 
 \indexlibrary{\idxcode{istreambuf_iterator}!constructor}%
@@ -2685,7 +2581,7 @@ constexpr istreambuf_iterator() noexcept;
 \begin{itemdescr}
 \pnum
 \effects
-Constructs the end-of-stream iterator.
+构造一个流末端迭代器。
 \end{itemdescr}
 
 
@@ -2698,20 +2594,8 @@ istreambuf_iterator(basic_streambuf<charT,traits>* s) noexcept;
 \begin{itemdescr}
 \pnum
 \effects
-Constructs an
-\tcode{istreambuf_iterator<>}
-that uses the
-\tcode{basic_streambuf<>}
-object
-\tcode{*(s.rdbuf())},
-or
-\tcode{*s},
-respectively.
-Constructs an end-of-stream iterator if
-\tcode{s.rdbuf()}
-is null.
+构造出分别使用\tcode{basic_streambuf<>}对象\tcode{*(s.rdbuf())}和\tcode{*s}的\tcode{istreambuf_iterator<>}。如果\tcode{s.rdbuf()}为空，则构造一个流末端迭代器。
 \end{itemdescr}
-
 
 \indexlibrary{\idxcode{istreambuf_iterator}!constructor}%
 \begin{itemdecl}
@@ -2721,13 +2605,7 @@ istreambuf_iterator(const proxy& p) noexcept;
 \begin{itemdescr}
 \pnum
 \effects
-Constructs a
-\tcode{istreambuf_iterator<>}
-that uses the
-\tcode{basic_streambuf<>}
-object pointed to by the
-\tcode{proxy}
-object's constructor argument \tcode{p}.
+构造一个\tcode{istreambuf_iterator<>}对象，该对象使用\tcode{proxy}对象的构造参数\tcode{p}指向的\tcode{basic_streambuf<>}对象。
 \end{itemdescr}
 
 \rSec3[istreambuf.iterator::op*]{\tcode{istreambuf_iterator::operator*}}
@@ -2740,10 +2618,7 @@ charT operator*() const
 \begin{itemdescr}
 \pnum
 \returns
-The character obtained via the
-\tcode{streambuf}
-member
-\tcode{sbuf_->sgetc()}.
+通过\tcode{streambuf}的成员\tcode{sbuf_->sgetc()}获取到的字符。
 \end{itemdescr}
 
 \rSec3[istreambuf.iterator::op++]{\tcode{istreambuf_iterator::operator++}}
@@ -2756,11 +2631,11 @@ istreambuf_iterator& operator++();
 \begin{itemdescr}
 \pnum
 \effects
-\tcode{sbuf_->sbumpc()}.
+\tcode{sbuf_->sbumpc()}。
 
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator++}!\idxcode{istreambuf_iterator}}%
@@ -2772,7 +2647,7 @@ proxy operator++(int);
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{proxy(sbuf_->sbumpc(), sbuf_)}.
+\tcode{proxy(sbuf_->sbumpc(), sbuf_)}。
 \end{itemdescr}
 
 \rSec3[istreambuf.iterator::equal]{\tcode{istreambuf_iterator::equal}}
@@ -2785,11 +2660,7 @@ bool equal(const istreambuf_iterator& b) const;
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{true}
-if and only if both iterators are at end-of-stream,
-or neither is at end-of-stream, regardless of what
-\tcode{streambuf}
-object they use.
+\tcode{true}当且仅当两个迭代器都是流末端迭代器或都不是流末端迭代器时，与它们使用什么\tcode{streambuf}对象无关。
 \end{itemdescr}
 
 \rSec3[istreambuf.iterator::op==]{\tcode{operator==}}
@@ -2804,7 +2675,7 @@ template <class charT, class traits>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{a.equal(b)}.
+\tcode{a.equal(b)}。
 \end{itemdescr}
 
 \rSec3[istreambuf.iterator::op!=]{\tcode{operator!=}}
@@ -2819,10 +2690,10 @@ template <class charT, class traits>
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{!a.equal(b)}.
+\tcode{!a.equal(b)}。
 \end{itemdescr}
 
-\rSec2[ostreambuf.iterator]{Class template \tcode{ostreambuf_iterator}}
+\rSec2[ostreambuf.iterator]{类模板\tcode{ostreambuf_iterator}}
 
 \indexlibrary{\idxcode{ostreambuf_iterator}}%
 \begin{codeblock}
@@ -2856,15 +2727,9 @@ namespace std {
 \end{codeblock}
 
 \pnum
-The
-class template
-\tcode{ostreambuf_iterator}
-writes successive
-\textit{characters}
-onto the output stream from which it was constructed.
-It is not possible to get a character value out of the output iterator.
+类模板\tcode{ostreambuf_iterator}向构造它的输出流中写入相继的\textit{字符}。从来不要、也不可能通过输出迭代器获取字符。
 
-\rSec3[ostreambuf.iter.cons]{\tcode{ostreambuf_iterator} constructors}
+\rSec3[ostreambuf.iter.cons]{\tcode{ostreambuf_iterator}构造函数}
 
 
 \indexlibrary{\idxcode{ostreambuf_iterator}!constructor}%
@@ -2875,12 +2740,11 @@ ostreambuf_iterator(ostream_type& s) noexcept;
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{s.rdbuf()}
-shall not be a null pointer.
+\tcode{s.rdbuf()}不应为空指针。
 
 \pnum
 \effects
-Initializes \tcode{sbuf_} with \tcode{s.rdbuf()}.
+以\tcode{s.rdbuf()}初始化\tcode{sbuf_}。
 \end{itemdescr}
 
 
@@ -2892,15 +2756,14 @@ ostreambuf_iterator(streambuf_type* s) noexcept;
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{s}
-shall not be a null pointer.
+\tcode{s}不应为空指针。
 
 \pnum
 \effects
-Initializes \tcode{sbuf_} with \tcode{s}.
+以\tcode{s}初始化\tcode{sbuf_}。
 \end{itemdescr}
 
-\rSec3[ostreambuf.iter.ops]{\tcode{ostreambuf_iterator} operations}
+\rSec3[ostreambuf.iter.ops]{\tcode{ostreambuf_iterator}操作}
 
 \indexlibrary{\idxcode{operator=}!\idxcode{ostreambuf_iterator}}%
 \begin{itemdecl}
@@ -2910,17 +2773,11 @@ ostreambuf_iterator& operator=(charT c);
 \begin{itemdescr}
 \pnum
 \effects
-If
-\tcode{failed()}
-yields
-\tcode{false},
-calls
-\tcode{sbuf_->sputc(c)};
-otherwise has no effect.
+若\tcode{failed()}返回\tcode{false}，则调用\tcode{sbuf_->sputc(c)}，否则无效果。
 
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator*}!\idxcode{ostreambuf_iterator}}%
@@ -2931,7 +2788,7 @@ ostreambuf_iterator& operator*();
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{operator++}!\idxcode{ostreambuf_iterator}}%
@@ -2943,7 +2800,7 @@ ostreambuf_iterator& operator++(int);
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{*this}.
+\tcode{*this}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{failed}!\idxcode{ostreambuf_iterator}}%
@@ -2954,26 +2811,16 @@ bool failed() const noexcept;
 \begin{itemdescr}
 \pnum
 \returns
-\tcode{true}
-if in any prior use of member
-\tcode{operator=},
-the call to
-\tcode{sbuf_->sputc()}
-returned
-\tcode{traits::eof()};
-or
-\tcode{false}
-otherwise.
+\tcode{true}当之前使用成员\tcode{operator=}时\tcode{sbuf_->sputc()}的调用返回\tcode{traits::eof()}；否则返回\tcode{false}。
 \end{itemdescr}
 
-\rSec1[iterator.range]{Range access}
+\rSec1[iterator.range]{范围访问}
 
 \pnum
-In addition to being available via inclusion of the \tcode{<iterator>} header,
-the function templates in \ref{iterator.range} are available when any of the following
-headers are included: \tcode{<array>}, \tcode{<deque>}, \tcode{<forward_list>},
-\tcode{<list>}, \tcode{<map>}, \tcode{<regex>}, \tcode{<set>}, \tcode{<string>},
-\tcode{<unordered_map>}, \tcode{<unordered_set>}, and \tcode{<vector>}.
+\ref{iterator.range}中的函数模板可以通过包含头文件\tcode{<iterator>}引入，也可以通过包含下列任意一个头文件引入：
+\tcode{<array>}、\tcode{<deque>}、\tcode{<forward_list>}、
+\tcode{<list>}、\tcode{<map>}、\tcode{<regex>}、\tcode{<set>}、\tcode{<string>}、
+\tcode{<unordered_map>}、\tcode{<unordered_set>}、\tcode{<vector>}。
 
 \indexlibrary{\idxcode{begin(C\&)}}%
 \begin{itemdecl}
@@ -2983,7 +2830,7 @@ template <class C> constexpr auto begin(const C& c) -> decltype(c.begin());
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{c.begin()}.
+\returns \tcode{c.begin()}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{end(C\&)}}%
@@ -2994,7 +2841,7 @@ template <class C> constexpr auto end(const C& c) -> decltype(c.end());
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{c.end()}.
+\returns \tcode{c.end()}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{begin(T (\&)[N])}}%
@@ -3004,7 +2851,7 @@ template <class T, size_t N> constexpr T* begin(T (&array)[N]) noexcept;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{array}.
+\returns \tcode{array}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{end(T (\&)[N])}}%
@@ -3014,7 +2861,7 @@ template <class T, size_t N> constexpr T* end(T (&array)[N]) noexcept;
 
 \begin{itemdescr}
 \pnum
-\returns \tcode{array + N}.
+\returns \tcode{array + N}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{cbegin(const C\&)}}%
@@ -3023,7 +2870,7 @@ template <class C> constexpr auto cbegin(const C& c) noexcept(noexcept(std::begi
   -> decltype(std::begin(c));
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{std::begin(c)}.
+\pnum \returns \tcode{std::begin(c)}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{cend(const C\&)}}%
@@ -3032,7 +2879,7 @@ template <class C> constexpr auto cend(const C& c) noexcept(noexcept(std::end(c)
   -> decltype(std::end(c));
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{std::end(c)}.
+\pnum \returns \tcode{std::end(c)}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{rbegin(C\&)}}%
@@ -3041,7 +2888,7 @@ template <class C> constexpr auto rbegin(C& c) -> decltype(c.rbegin());
 template <class C> constexpr auto rbegin(const C& c) -> decltype(c.rbegin());
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{c.rbegin()}.
+\pnum \returns \tcode{c.rbegin()}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{rend(const C\&)}}%
@@ -3050,7 +2897,7 @@ template <class C> constexpr auto rend(C& c) -> decltype(c.rend());
 template <class C> constexpr auto rend(const C& c) -> decltype(c.rend());
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{c.rend()}.
+\pnum \returns \tcode{c.rend()}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{rbegin(T (\&array)[N])}}%
@@ -3058,7 +2905,7 @@ template <class C> constexpr auto rend(const C& c) -> decltype(c.rend());
 template <class T, size_t N> constexpr reverse_iterator<T*> rbegin(T (&array)[N]);
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{reverse_iterator<T*>(array + N)}.
+\pnum \returns \tcode{reverse_iterator<T*>(array + N)}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{rend(T (\&array)[N])}}%
@@ -3066,7 +2913,7 @@ template <class T, size_t N> constexpr reverse_iterator<T*> rbegin(T (&array)[N]
 template <class T, size_t N> constexpr reverse_iterator<T*> rend(T (&array)[N]);
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{reverse_iterator<T*>(array)}.
+\pnum \returns \tcode{reverse_iterator<T*>(array)}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{rbegin(initializer_list<E>)}}%
@@ -3074,7 +2921,7 @@ template <class T, size_t N> constexpr reverse_iterator<T*> rend(T (&array)[N]);
 template <class E> constexpr reverse_iterator<const E*> rbegin(initializer_list<E> il);
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{reverse_iterator<const E*>(il.end())}.
+\pnum \returns \tcode{reverse_iterator<const E*>(il.end())}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{rend(initializer_list<E>)}}%
@@ -3082,7 +2929,7 @@ template <class E> constexpr reverse_iterator<const E*> rbegin(initializer_list<
 template <class E> constexpr reverse_iterator<const E*> rend(initializer_list<E> il);
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{reverse_iterator<const E*>(il.begin())}.
+\pnum \returns \tcode{reverse_iterator<const E*>(il.begin())}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{crbegin(const C\& c)}}%
@@ -3090,7 +2937,7 @@ template <class E> constexpr reverse_iterator<const E*> rend(initializer_list<E>
 template <class C> constexpr auto crbegin(const C& c) -> decltype(std::rbegin(c));
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{std::rbegin(c)}.
+\pnum \returns \tcode{std::rbegin(c)}。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{crend(const C\& c)}}%
@@ -3098,52 +2945,50 @@ template <class C> constexpr auto crbegin(const C& c) -> decltype(std::rbegin(c)
 template <class C> constexpr auto crend(const C& c) -> decltype(std::rend(c));
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{std::rend(c)}.
+\pnum \returns \tcode{std::rend(c)}。
 \end{itemdescr}
 
-\rSec1[iterator.container]{Container access}
+\rSec1[iterator.container]{容器访问}
 
 \pnum
-In addition to being available via inclusion of the \tcode{<iterator>} header,
-the function templates in \ref{iterator.container} are available
-when any of the following headers are included:
-\tcode{<array>}, \tcode{<deque>}, \tcode{<forward_list>}, \tcode{<list>},
-\tcode{<map>}, \tcode{<regex>}, \tcode{<set>}, \tcode{<string>},
-\tcode{<unordered_map>}, \tcode{<unordered_set>}, and \tcode{<vector>}.
+\ref{iterator.container}中的函数模板可以通过包含头文件\tcode{<iterator>}引入，也可以通过包含下列任意一个头文件引入：
+\tcode{<array>}、\tcode{<deque>}、\tcode{<forward_list>}、\tcode{<list>}、
+\tcode{<map>}、\tcode{<regex>}、\tcode{<set>}、\tcode{<string>}、
+\tcode{<unordered_map>}、\tcode{<unordered_set>}、\tcode{<vector>}。
 
 \begin{itemdecl}
 template <class C> constexpr auto size(const C& c) -> decltype(c.size());
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{c.size()}.
+\pnum \returns \tcode{c.size()}。
 \end{itemdescr}
 
 \begin{itemdecl}
 template <class T, size_t N> constexpr size_t size(const T (&array)[N]) noexcept;
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{N}.
+\pnum \returns \tcode{N}。
 \end{itemdescr}
 
 \begin{itemdecl}
 template <class C> constexpr auto empty(const C& c) -> decltype(c.empty());
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{c.empty()}.
+\pnum \returns \tcode{c.empty()}。
 \end{itemdescr}
 
 \begin{itemdecl}
 template <class T, size_t N> constexpr bool empty(const T (&array)[N]) noexcept;
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{false}.
+\pnum \returns \tcode{false}。
 \end{itemdescr}
 
 \begin{itemdecl}
 template <class E> constexpr bool empty(initializer_list<E> il) noexcept;
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{il.size() == 0}.
+\pnum \returns \tcode{il.size() == 0}。
 \end{itemdescr}
 
 \begin{itemdecl}
@@ -3151,19 +2996,19 @@ template <class C> constexpr auto data(C& c) -> decltype(c.data());
 template <class C> constexpr auto data(const C& c) -> decltype(c.data());
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{c.data()}.
+\pnum \returns \tcode{c.data()}。
 \end{itemdescr}
 
 \begin{itemdecl}
 template <class T, size_t N> constexpr T* data(T (&array)[N]) noexcept;
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{array}.
+\pnum \returns \tcode{array}。
 \end{itemdescr}
 
 \begin{itemdecl}
 template <class E> constexpr const E* data(initializer_list<E> il) noexcept;
 \end{itemdecl}
 \begin{itemdescr}
-\pnum \returns \tcode{il.begin()}.
+\pnum \returns \tcode{il.begin()}。
 \end{itemdescr}
