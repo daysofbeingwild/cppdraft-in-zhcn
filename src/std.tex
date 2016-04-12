@@ -7,7 +7,12 @@
 \documentclass[ebook,10pt,oneside,openany,final]{memoir}
 % \includeonly{declarations}
 
-\usepackage{CJKutf8}
+\usepackage[BoldFont,SlantFont,CJKchecksingle]{xeCJK}
+\setCJKmainfont{楷体}
+\setCJKmonofont{宋体}
+\xeCJKsetslantfactor{0.999}
+\xeCJKsetemboldenfactor{4}
+
 \usepackage[american]
 {babel}        % needed for iso dates
 \usepackage[iso,american]
@@ -33,8 +38,8 @@
 \usepackage{fixme}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
-\usepackage[pdftex, final]{graphicx}
-\usepackage[pdftex,
+%\usepackage[xetex, final]{graphicx}
+\usepackage[xetex,
 pdftitle={C++ International Standard},
 pdfsubject={C++ International Standard},
 pdfcreator={Richard Smith},
@@ -76,86 +81,84 @@ plainpages=false
 
 %%--------------------------------------------------
 %% turn off all ligatures inside \texttt
-\DisableLigatures{encoding = T1, family = tt*}
+%\DisableLigatures{encoding = T1, family = tt*}
 
 \begin{document}
-	\begin{CJK}{UTF8}{gkai}
-		\chapterstyle{cppstd}
-		\pagestyle{cpppage}
-		
-		%%--------------------------------------------------
-		%% configuration
-		\input{config}
-		
-		%%--------------------------------------------------
-		%% front matter
-		\frontmatter
-		
-		\begin{comment}
-		\include{front}
-		\end{comment}
-		
-		%%--------------------------------------------------
-		%% main body of the document
-		\mainmatter
-		\setglobalstyles
-		
-		\begin{comment}
-		\include{intro}
-		\include{lex}
-		\include{basic}
-		\include{conversions}
-		\include{expressions}
-		\include{statements}
-		\include{declarations}
-		\include{declarators}
-		\include{classes}
-		\include{derived}
-		\include{access}
-		\include{special}
-		\include{overloading}
-		\include{templates}
-		\include{exceptions}
-		\include{preprocessor}
-		\include{lib-intro}
-		\include{support}
-		\include{diagnostics}
-		\include{utilities}
-		\include{strings}
-		\include{locales}
-		\include{containers}
-		\end{comment}
-		\include{iterators}
-		\begin{comment}
-		\include{algorithms}
-		\include{numerics}
-		\include{iostreams}
-		\include{regex}
-		\include{atomics}
-		\include{threads}
-		\end{comment}
-		
-		%%--------------------------------------------------
-		%% appendices
-		\appendix
-		\begin{comment}
-		\include{grammar}
-		\include{limits}
-		\include{compatibility}
-		\include{future}
-		\include{charname}
-		\include{xref}
-		\end{comment}
-		
-		%%--------------------------------------------------
-		%% back matter
-		\backmatter
-		\begin{comment}
-		\include{back}
-		\end{comment}
-		
-		
-		%%--------------------------------------------------
-		%% End of document
-	\end{CJK}
+\chapterstyle{cppstd}
+\pagestyle{cpppage}
+
+%%--------------------------------------------------
+%% configuration
+\input{config}
+
+%%--------------------------------------------------
+%% front matter
+\frontmatter
+
+\begin{comment}
+\include{front}
+\end{comment}
+
+%%--------------------------------------------------
+%% main body of the document
+\mainmatter
+\setglobalstyles
+
+\begin{comment}
+\include{intro}
+\include{lex}
+\include{basic}
+\include{conversions}
+\include{expressions}
+\include{statements}
+\include{declarations}
+\include{declarators}
+\include{classes}
+\include{derived}
+\include{access}
+\include{special}
+\include{overloading}
+\include{templates}
+\include{exceptions}
+\include{preprocessor}
+\include{lib-intro}
+\include{support}
+\include{diagnostics}
+\include{utilities}
+\include{strings}
+\include{locales}
+\include{containers}
+\end{comment}
+\include{iterators}
+\begin{comment}
+\include{algorithms}
+\include{numerics}
+\include{iostreams}
+\include{regex}
+\include{atomics}
+\include{threads}
+\end{comment}
+
+%%--------------------------------------------------
+%% appendices
+\appendix
+\begin{comment}
+\include{grammar}
+\include{limits}
+\include{compatibility}
+\include{future}
+\include{charname}
+\include{xref}
+\end{comment}
+
+%%--------------------------------------------------
+%% back matter
+\backmatter
+\begin{comment}
+\include{back}
+\end{comment}
+
+
+%%--------------------------------------------------
+%% End of document
 \end{document}
