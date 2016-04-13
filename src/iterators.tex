@@ -49,7 +49,7 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 \exitnote
 
 \pnum
-正如可以担保指向数组的常规指针一定存在一个指针值指向数组的接尾部分，所有迭代器类型都存在一个迭代器值指向对应序列的接尾部分，这些值称为{接尾}值。使表达式\tcode{*i}成立的迭代器\tcode{i}的值是\term{可解引用的}。要注意本库不会做出接尾值可解引用的假设。迭代器可能为异值，说明其不与任何序列相关。
+正如可以担保指向数组的常规指针一定存在一个指针值指向数组的接尾部分，所有迭代器类型都存在一个迭代器值指向对应序列的接尾部分，这些值称为\term{接尾}值。使表达式\tcode{*i}成立的迭代器\tcode{i}的值是\term{可解引用的}。要注意贯彻本库的一个核心是接尾值不可解引用。迭代器可能为异值，异值表示其不与任何序列相关。
 \enterexample
 虽声明但未初始化的指针\tcode{x}（如\tcode{int* x;}）应当，同时也必须被当作异值对待。
 \exitexample
@@ -2817,7 +2817,7 @@ bool failed() const noexcept;
 \rSec1[iterator.range]{范围访问}
 
 \pnum
-\ref{iterator.range}中的函数模板可以通过包含头文件\tcode{<iterator>}引入，也可以通过包含下列任意一个头文件引入：
+\ref{iterator.range}中的函数模板可以通过包含头文件\tcode{<iterator>}以及下列任意一个头文件引入：
 \tcode{<array>}、\tcode{<deque>}、\tcode{<forward_list>}、
 \tcode{<list>}、\tcode{<map>}、\tcode{<regex>}、\tcode{<set>}、\tcode{<string>}、
 \tcode{<unordered_map>}、\tcode{<unordered_set>}、\tcode{<vector>}。
@@ -2951,7 +2951,7 @@ template <class C> constexpr auto crend(const C& c) -> decltype(std::rend(c));
 \rSec1[iterator.container]{容器访问}
 
 \pnum
-\ref{iterator.container}中的函数模板可以通过包含头文件\tcode{<iterator>}引入，也可以通过包含下列任意一个头文件引入：
+\ref{iterator.container}中的函数模板可以通过包含头文件\tcode{<iterator>}以及下列任意一个头文件引入：
 \tcode{<array>}、\tcode{<deque>}、\tcode{<forward_list>}、\tcode{<list>}、
 \tcode{<map>}、\tcode{<regex>}、\tcode{<set>}、\tcode{<string>}、
 \tcode{<unordered_map>}、\tcode{<unordered_set>}、\tcode{<vector>}。
