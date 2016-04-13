@@ -114,7 +114,7 @@ ISO/IEC 2382-1:1993界定的术语和定义
 额外定义了仅用于第\ref{library}章到第\ref{\lastlibchapter}章以及附录\ref{depr}的术语。
 
 \pnum
-仅用于本标准极少一部分的术语随用随定义，并标注为斜体。
+仅在本标准少数几处使用的术语随用随定义，并标注为斜体。
 
 \indexdefn{access}%
 \definition{访问}{defns.access}
@@ -144,55 +144,47 @@ ISO/IEC 2382-1:1993界定的术语和定义
 \grammarterm{id-expression}组成的列表中的项(\ref{temp.arg})
 
 \indexdefn{behavior!conditionally-supported}%
-\definition{有条件支持的}{defns.cond.supp}
+\definition{有条件支持}{defns.cond.supp}
 实现不一定要支持的程序构造\\
-\enternote 所有实现都会注明它不支持的所有规定为有条件支持的程序构造。 \exitnote
+\enternote 实现会各自注明所有规定为有条件支持但它不支持的程序构造。 \exitnote
 
 \indexdefn{message!diagnostic}%
 \definition{诊错信息}{defns.diagnostic}
-属于实现输出信息中\impldef{diagnostic message}的那一类的信息
+实现的输出信息中属于\impldef{diagnostic message}那一子集的信息
 
 \indexdefn{type!dynamic}%
-\definition{dynamic type}{defns.dynamic.type}
-\defncontext{glvalue} type of the most derived object~(\ref{intro.object}) to which the
-glvalue refers\\
+\definition{动态类型}{defns.dynamic.type}
+\defncontext{广义左值} 广义左值所引用的最深层派生对象(\ref{intro.object})的类型\\
 \enterexample
-if a pointer~(\ref{dcl.ptr}) \tcode{p} whose static type is ``pointer to
-class \tcode{B}'' is pointing to an object of class \tcode{D}, derived
-from \tcode{B} (Clause~\ref{class.derived}), the dynamic type of the
-expression \tcode{*p} is ``\tcode{D}''. References~(\ref{dcl.ref}) are
-treated similarly.
+若指针(\ref{dcl.ptr}) \tcode{p}的静态类型是``指向\tcode{B}类的指针''，
+指向派生自\tcode{B} (第\ref{class.derived}章)的\tcode{D}类对象，
+则表达式\tcode{*p}的动态类型为``\tcode{D}''。引用(\ref{dcl.ref})也是同理。
 \exitexample
 
 \indexdefn{type!dynamic}%
-\definition{dynamic type}{defns.dynamic.type.prvalue}
-\defncontext{prvalue} static type of the prvalue expression
+\definition{动态类型}{defns.dynamic.type.prvalue}
+\defncontext{纯右值} 纯右值表达式的静态类型
 
 \indexdefn{program!ill-formed}%
-\definition{ill-formed program}{defns.ill.formed}
-program that is not well-formed~(\ref{defns.well.formed})
+\definition{违例程序}{defns.ill.formed}
+不合规(\ref{defns.well.formed})的程序
 
 \indexdefn{behavior!implementation-defined}%
-\definition{implementation-defined behavior}{defns.impl.defined}
-behavior, for a well-formed program construct and correct data, that
-depends on the implementation and that each implementation documents
+\definition{实现定义的行为}{defns.impl.defined}
+在程序构造合规且数据正确的前提下，取决于具体实现，由实现各自注明的行为
 
 \indexdefn{limits!implementation}%
-\definition{implementation limits}{defns.impl.limits}
-restrictions imposed upon programs by the implementation
+\definition{实现限制}{defns.impl.limits}
+实现强加给程序的限制
 
 \indexdefn{behavior!locale-specific}%
-\definition{locale-specific behavior}{defns.locale.specific}
-behavior that depends on local conventions of nationality, culture, and
-language that each implementation documents
+\definition{地域特定的行为}{defns.locale.specific}
+取决于当地的民族习俗、文化和语言，由实现各自注明的行为
 
 \indexdefn{character!multibyte}%
-\definition{multibyte character}{defns.multibyte}
-sequence of one or more bytes representing a member of the extended
-character set of either the source or the execution environment\\
-\enternote The
-extended character set is a superset of the basic character
-set~(\ref{lex.charset}).\exitnote
+\definition{多字节字符}{defns.multibyte}
+一个或多个字节构成的表示源程序中或执行环境下的扩展字符集的某个成员的字符序列\\
+\enternote 扩展字符集是基本字符集(\ref{lex.charset})的超集。 \exitnote
 
 \indexdefn{parameter}%
 \indexdefn{parameter!function}%
@@ -282,9 +274,9 @@ possible behaviors is usually delineated by this International Standard.
 \exitnote
 
 \indexdefn{program!well-formed}%
-\definition{well-formed program}{defns.well.formed}
-\Cpp  program constructed according to the syntax rules, diagnosable
-semantic rules, and the one-definition rule ~(\ref{basic.def.odr}).%
+\definition{合规程序}{defns.well.formed}
+按照语法规则、可判断的语义规则以及一处定义规则(\ref{basic.def.odr})
+构造的\Cpp 程序。%
 \indextext{definitions|)}
 
 \rSec1[intro.compliance]{Implementation compliance}
