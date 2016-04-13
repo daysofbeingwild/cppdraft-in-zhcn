@@ -29,7 +29,7 @@ These are the translations of C++ standard drafts. The primative materials were 
 
 ###  鼓励您提出下列任何的ISSUEs：
 + 对原稿的表意有误
-+ 语句不通顺或不够直白
++ 语句不通顺或不够精确
 + 排版有误或不美观
 
 #### 只言片语 
