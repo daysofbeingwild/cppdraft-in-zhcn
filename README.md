@@ -25,7 +25,7 @@ These are the translations of C++ standard drafts. The primative materials were 
   勘误的过程是：
 + 您提出ISSUEs
 + 我（或如果可能后期成立专门的讨论组/群）仔细论证
- + 采纳您的建议或向您说明我的想法
++ 采纳您的建议或向您说明我的想法
   
   鼓励您提出下列任何的ISSUEs：
 + 对原稿的表意有误
