@@ -25,35 +25,30 @@
 \indextext{multiple threads|see{threads, multiple}}%
 \indextext{normative references|see{references, normative}}
 
-\rSec1[intro.scope]{Scope}
+\rSec1[intro.scope]{范围}
 
 \pnum
 \indextext{scope|(}%
-This International Standard specifies requirements for implementations
-of the \Cpp programming language. The first such requirement is that
-they implement the language, and so this International Standard also
-defines \Cpp. Other requirements and relaxations of the first
-requirement appear at various places within this International Standard.
+本标准规定了程序设计语言\Cpp 实现的需求。
+\Cpp 实现的首要需求就是实现语言本身，因此本标准对\Cpp 也作出了定义。
+关于其它的需求和首要需求的宽限在本标准文内各处皆有描述。
 
 \pnum
-\Cpp is a general purpose programming language based on the C
-programming language as described in ISO/IEC 9899:1999
-\doccite{Programming languages --- C} (hereinafter referred to as the
-\indexdefn{C!standard}\term{C standard}). In addition to
-the facilities provided by C, \Cpp provides additional data types,
-classes, templates, exceptions, namespaces, operator
-overloading, function name overloading, references, free store
-management operators, and additional library facilities.%
+\Cpp 是一门通用型程序设计语言，基于ISO/IEC 9899:1999
+\doccite{Programming languages --- C}（以下简称
+\indexdefn{C!standard}\term{C标准}）拟定的程序设计语言C。
+\Cpp 不仅囊括了C的功能，还提供了一些特有的数据类型以及类、模板、
+异常、命名空间、操作符重载、函数名重载、
+引用、自由存储管理操作符以及特有的库功能。%
 \indextext{scope|)}
 
-\rSec1[intro.refs]{Normative references}
+\rSec1[intro.refs]{规范性引用文件}
 
 \pnum
 \indextext{references!normative|(}%
-The following referenced documents are indispensable for the application
-of this document. For dated references, only the edition cited applies.
-For undated references, the latest edition of the referenced document
-(including any amendments) applies.
+下列文件对于本文件的应用是必不可少的。
+凡是注日期的引用文件，仅注日期的版本适用于本文件。
+凡是不注日期的引用文件，其最新版本（包括所有的修改单）适用于本文件。
 
 \begin{itemize}
 \item Ecma International, \doccite{ECMAScript Language Specification},
@@ -84,88 +79,78 @@ to be used in the natural sciences and technology}
 \end{itemize}
 
 \pnum
-The library described in Clause 7 of ISO/IEC 9899:1999 and Clause 7 of
-ISO/IEC 9899:1999/Cor.1:2001 and Clause 7 of ISO/IEC
-9899:1999/Cor.2:2003 is hereinafter called the
-\indexdefn{C!standard library}\term{C standard
-library}.\footnote{With the qualifications noted in Clauses~\ref{\firstlibchapter}
-through~\ref{\lastlibchapter} and in~\ref{diff.library}, the C standard
-library is a subset of the \Cpp standard library.}
+以下简称ISO/IEC 9899:1999第7章、ISO/IEC 9899:1999/Cor.1:2001第7章以及
+ISO/IEC 9899:1999/Cor.2:2003第7章中描述的库为
+\indexdefn{C!standard library}\term{C标准库}。
+\footnote{
+在第\ref{\firstlibchapter}到第\ref{\lastlibchapter}章
+以及第\ref{diff.library}章作出的限制下，
+C标准库是\Cpp 标准库的子集。
+}
 
 \pnum
-The library described in ISO/IEC TR 19769:2004 is hereinafter called the
-\indexdefn{C!Unicode TR}\term{C Unicode TR}.
+以下简称ISO/IEC TR 19769:2004中规定的库为
+\indexdefn{C!Unicode TR}\term{C Unicode TR}。
 
 \pnum
-The operating system interface described in ISO/IEC 9945:2003 is
-hereinafter called \defn{POSIX}.
+以下简称ISO/IEC 9945:2003中描述的操作系统接口为
+\defn{POSIX}。
 
 \pnum
-The ECMAScript Language Specification described in Standard Ecma-262 is
-hereinafter called \defn{ECMA-262}.
+以下简称Ecma-262标准中描述的ECMAScript语言规范为
+\defn{ECMA-262}。
 \indextext{references!normative|)}
 
-\rSec1[intro.defs]{Terms and definitions}
+\rSec1[intro.defs]{术语和定义}
 
 \pnum
 \indextext{definitions|(}%
-For the purposes of this document,
-the terms and definitions
-given in ISO/IEC 2382-1:1993 and
-the terms, definitions, and symbols
-given in ISO 80000-2:2009 apply,
-as do the following definitions.
+ISO/IEC 2382-1:1993界定的术语和定义
+以及ISO 80000-2:2009界定的术语、定义和符号适用于本文件。
+以下列出了其中一部分。
 
 \pnum
 \ref{definitions}
-defines additional terms that are used only in Clauses~\ref{library}
-through~\ref{\lastlibchapter} and Annex~\ref{depr}.
+额外定义了仅用于第\ref{library}章到第\ref{\lastlibchapter}章以及附录\ref{depr}的术语。
 
 \pnum
-Terms that are used only in a small portion of this International
-Standard are defined where they are used and italicized where they are
-defined.
+仅用于本标准极少一部分的术语随用随定义，并标注为斜体。
 
 \indexdefn{access}%
-\definition{access}{defns.access}
-\defncontext{execution-time action} to read or modify the value of an object
+\definition{访问}{defns.access}
+\defncontext{执行时动作}读取或修改对象的值
 
 \indexdefn{argument}%
 \indexdefn{argument!function call expression}
-\definition{argument}{defns.argument}
-\defncontext{function call expression} expression in the
-comma-separated list bounded by the parentheses~(\ref{expr.call})
+\definition{实参}{defns.argument}
+\defncontext{函数调用表达式} 由圆括号界定、逗号分隔、表达式组成的列表中的项(\ref{expr.call})
 
 \indexdefn{argument}%
 \indexdefn{argument!function-like macro}%
-\definition{argument}{defns.argument.macro}
-\defncontext{function-like macro} sequence of preprocessing tokens in the
-comma-separated list bounded by the parentheses~(\ref{cpp.replace})
+\definition{实参}{defns.argument.macro}
+\defncontext{函数式宏} 由圆括号界定、逗号分隔、预处理符号序列组成的列表中的项(\ref{cpp.replace})
 
 \indexdefn{argument}%
 \indexdefn{argument!throw expression}%
-\definition{argument}{defns.argument.throw}
-\defncontext{throw expression} the operand of \tcode{throw}~(\ref{expr.throw})
+\definition{实参}{defns.argument.throw}
+\defncontext{throw表达式} \tcode{throw}的操作数(\ref{expr.throw})
 
 \indexdefn{argument}%
 \indexdefn{argument!template instantiation}%
-\definition{argument}{defns.argument.templ}
-\defncontext{template instantiation}
-\grammarterm{constant-expression},
-\grammarterm{type-id}, or
-\grammarterm{id-expression} in the comma-separated
-list bounded by the angle brackets~(\ref{temp.arg})
+\definition{实参}{defns.argument.templ}
+\defncontext{模板实例化} 由尖括号界定、逗号分隔、
+\grammarterm{constant-expression}或
+\grammarterm{type-id}或
+\grammarterm{id-expression}组成的列表中的项(\ref{temp.arg})
 
 \indexdefn{behavior!conditionally-supported}%
-\definition{conditionally-supported}{defns.cond.supp}
-program construct that an implementation is not required to support\\
-\enternote Each implementation documents all conditionally-supported
-constructs that it does not support.\exitnote
+\definition{有条件支持的}{defns.cond.supp}
+实现不一定要支持的程序构造\\
+\enternote 所有实现都会注明它不支持的所有规定为有条件支持的程序构造。 \exitnote
 
 \indexdefn{message!diagnostic}%
-\definition{diagnostic message}{defns.diagnostic}
-message belonging to an \impldef{diagnostic message} subset of the
-implementation's output messages
+\definition{诊错信息}{defns.diagnostic}
+属于实现输出信息中\impldef{diagnostic message}的那一类的信息
 
 \indexdefn{type!dynamic}%
 \definition{dynamic type}{defns.dynamic.type}

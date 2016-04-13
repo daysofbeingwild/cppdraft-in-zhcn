@@ -1,6 +1,14 @@
 
 本文件为 https://github.com/daysofbeingwild/cppdraft-in-zhcn 的词汇表
 
+1. intro.tex
+
+General-Purpose programming language
+通用型编程语言
+
+free store management operator
+自由存储管理操作符
+
 iterator -- 迭代器  
 
 past the last element of -- （某序列的）接尾部分  
