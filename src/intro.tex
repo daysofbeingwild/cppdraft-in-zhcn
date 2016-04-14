@@ -83,8 +83,8 @@ to be used in the natural sciences and technology}
 ISO/IEC 9899:1999/Cor.2:2003第7章中描述的库为
 \indexdefn{C!standard library}\term{C标准库}。
 \footnote{
-在第\ref{\firstlibchapter}到第\ref{\lastlibchapter}章
-以及第\ref{diff.library}章作出的限制下，
+在条款\ref{\firstlibchapter}到条款\ref{\lastlibchapter}
+以及条款\ref{diff.library}作出的限制下，
 C标准库是\Cpp 标准库的子集。
 }
 
@@ -111,7 +111,7 @@ ISO/IEC 2382-1:1993界定的术语和定义
 
 \pnum
 \ref{definitions}
-额外定义了仅用于第\ref{library}章到第\ref{\lastlibchapter}章以及附录\ref{depr}的术语。
+额外定义了仅用于条款\ref{library}到条款\ref{\lastlibchapter}以及附录\ref{depr}的术语。
 
 \pnum
 仅在本标准少数几处使用的术语随用随定义，并标注为斜体。
@@ -149,7 +149,7 @@ ISO/IEC 2382-1:1993界定的术语和定义
 \enternote 实现会各自注明所有规定为有条件支持但它不支持的程序构造。 \exitnote
 
 \indexdefn{message!diagnostic}%
-\definition{诊错信息}{defns.diagnostic}
+\definition{审错信息}{defns.diagnostic}
 实现的输出信息中属于\impldef{diagnostic message}那一子集的信息
 
 \indexdefn{type!dynamic}%
@@ -157,7 +157,7 @@ ISO/IEC 2382-1:1993界定的术语和定义
 \defncontext{广义左值} 广义左值所引用的最深层派生对象(\ref{intro.object})的类型\\
 \enterexample
 若指针(\ref{dcl.ptr}) \tcode{p}的静态类型是``指向\tcode{B}类的指针''，
-指向派生自\tcode{B} (第\ref{class.derived}章)的\tcode{D}类对象，
+指向派生自\tcode{B} (条款\ref{class.derived})的\tcode{D}类对象，
 则表达式\tcode{*p}的动态类型为``\tcode{D}''。引用(\ref{dcl.ref})也是同理。
 \exitexample
 
@@ -265,59 +265,50 @@ not engender undefined behavior; they are required to be diagnosed.
 \exitnote
 
 \indexdefn{behavior!unspecified}%
-\definition{unspecified behavior}{defns.unspecified}
-behavior, for a well-formed program construct and correct data, that
-depends on the implementation\\
-\enternote The implementation is not required to
-document which behavior occurs. The range of
-possible behaviors is usually delineated by this International Standard.
+\definition{未规定行为}{defns.unspecified}
+在程序构造合规且数据正确的前提下，取决于具体实现的行为\\
+\enternote
+实现不必注明哪种行为会发生。
+通常情况下本标准会描述出可能的行为范围。
 \exitnote
 
 \indexdefn{program!well-formed}%
 \definition{合规程序}{defns.well.formed}
-按照语法规则、可判断的语义规则以及一处定义规则(\ref{basic.def.odr})
-构造的\Cpp 程序。%
+按照语法规则、\transuwave{可审错的语义规则}以及一处定义规则(\ref{basic.def.odr})
+构造的\Cpp 程序%
 \indextext{definitions|)}
 
-\rSec1[intro.compliance]{Implementation compliance}
+\rSec1[intro.compliance]{实现合规度}
 
 \pnum
 \indextext{conformance requirements|(}%
 \indextext{conformance requirements!general|(}%
-The set of
-\defn{diagnosable rules}
-consists of all syntactic and semantic rules in this International
-Standard except for those rules containing an explicit notation that
-``no diagnostic is required'' or which are described as resulting in
-``undefined behavior.''
+\defn{可审错规则}集由本标准所有的语法语义规则组成，
+但不包括被显式地记为``无需审错''
+或描述为导致``未定义行为''的规则。
 
 \pnum
 \indextext{conformance requirements!method of description}%
-Although this International Standard states only requirements on \Cpp
-implementations, those requirements are often easier to understand if
-they are phrased as requirements on programs, parts of programs, or
-execution of programs. Such requirements have the following meaning:
+本标准仅规定\Cpp 实现的需求，
+还存在某些需求，它们约定俗成地成为程序的、程序某部分的或是程序执行时的需求，且往往易于理解。
+此类需求具有下列含义：
 \begin{itemize}
 
 \item
-If a program contains no violations of the rules in this
-International Standard, a conforming implementation shall,
-within its resource limits, accept and correctly execute\footnote{``Correct execution'' can include undefined behavior, depending on
-the data being processed; see~\ref{intro.defs} and~\ref{intro.execution}.}
-that program.
+若程序未违反本标准任何一条规则，符合标准的实现应在自身的资源限额内接受并且正确地执行
+\footnote{所谓``正确执行''可以包含未定义行为，取决于要处理的数据；见\ref{intro.defs}和\ref{intro.execution}。}
+该程序。
 
 \item
 \indextext{message!diagnostic}%
-If a program contains a violation of any diagnosable rule or an occurrence
-of a construct described in this Standard as ``conditionally-supported'' when
-the implementation does not support that construct, a conforming implementation
-shall issue at least one diagnostic message.
+若程序违反了本标准任何一条可审错规则，
+或使用了本标准描述为``有条件支持''而实现并不支持的程序构造，
+符合标准的实现应至少发布一条审错信息。
 
 \item
 \indextext{behavior!undefined}%
-If a program contains a violation of a rule for which no diagnostic
-is required, this International Standard places no requirement on
-implementations with respect to that program.
+若程序违反了本标准任何一条无需审错的规则，
+实现如何对待该程序本标准未作规定。
 
 \end{itemize}
 
@@ -325,21 +316,17 @@ implementations with respect to that program.
 \indextext{conformance requirements!library|(}%
 \indextext{conformance requirements!classes}%
 \indextext{conformance requirements!class templates}%
-For classes and class templates, the library Clauses specify partial
-definitions. Private members~(Clause~\ref{class.access}) are not
-specified, but each implementation shall supply them to complete the
-definitions according to the description in the library Clauses.
+对于类和类模板，库条款给出了部分定义。
+私有成员(条款\ref{class.access})未给出，
+实现应根据库条款的描述提供它们以完成定义。
 
 \pnum
-For functions, function templates, objects, and values, the library
-Clauses specify declarations. Implementations shall supply definitions
-consistent with the descriptions in the library Clauses.
+对于函数、函数模板、对象和值，库条款给出了声明。
+实现应给出与库条款的描述一致的定义。
 
 \pnum
-The names defined in the library have namespace
-scope~(\ref{basic.namespace}). A \Cpp  translation
-unit~(\ref{lex.phases}) obtains access to these names by including the
-appropriate standard library header~(\ref{cpp.include}).
+标准库定义的名称都具有命名空间作用域(\ref{basic.namespace})。
+\Cpp 翻译单元(\ref{lex.phases})通过包含适当的标准库头文件(\ref{cpp.include})访问这些名称。
 
 \pnum
 The templates, classes, functions, and objects in the library have
