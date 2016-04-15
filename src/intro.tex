@@ -291,7 +291,7 @@ not engender undefined behavior; they are required to be diagnosed.
 
 \item
 若程序未违反本标准任何一条规则，符合标准的实现应在自身的资源限额内接受并且正确地执行
-\footnote{所谓``正确执行''可以包含未定义行为，取决于要处理的数据；见\ref{intro.defs}和\ref{intro.execution}。}
+\footnote{所谓``正确执行''也包括未定义行为，取决于要处理的数据；见\ref{intro.defs}和\ref{intro.execution}。}
 该程序。
 
 \item
@@ -324,34 +324,28 @@ not engender undefined behavior; they are required to be diagnosed.
 \Cpp 翻译单元(\ref{lex.phases})通过包含适当的标准库头文件(\ref{cpp.include})访问这些名称。
 
 \pnum
-The templates, classes, functions, and objects in the library have
-external linkage~(\ref{basic.link}). The implementation provides
-definitions for standard library entities, as necessary, while combining
-translation units to form a complete \Cpp  program~(\ref{lex.phases}).%
+标准库中的模板、类、函数和对象都是外部链接(\ref{basic.link})。
+将翻译单元合并成完整的\Cpp 程序时(\ref{lex.phases})，如有必要，由实现为标准库中的实体提供定义。%
 \indextext{conformance requirements!library|)}
 
 \pnum
-Two kinds of implementations are defined: a \defn{hosted implementation} and a
-\defn{freestanding implementation}. For a hosted implementation, this
-International Standard defines the set of available libraries. A freestanding
-implementation is one in which execution may take place without the benefit of
-an operating system, and has an \impldef{required libraries for freestanding
-implementation} set of libraries that includes certain language-support
-libraries~(\ref{compliance}).
+实现按定义分为两种：
+\defn{宿主式实现}和\defn{独立式实现}。
+对于宿主式实现，本标准定义了其可用库的集合。
+独立式实现可以脱离于操作系统执行程序，并有一套
+包含某些语言支持库(\ref{compliance})的
+\impldef{required libraries for freestanding implementation}库的集合
 
 \pnum
-A conforming implementation may have extensions (including
-additional library functions), provided they do not alter the
-behavior of any well-formed program.
-Implementations are required to diagnose programs that use such
-extensions that are ill-formed according to this International Standard.
-Having done so, however, they can compile and execute such programs.
+符合标准的实现允许作扩展（包括一些附加的库函数）的前提是不改变任何合规程序的行为。
+若程序使用了本标准视为违例的扩展，实现应向程序出示审错信息，
+同时不影响程序的编译和执行。
 
 \pnum
-Each implementation shall include documentation that identifies all
-conditionally-supported constructs\indextext{behavior!conditionally-supported}
-that it does not support and defines all locale-specific characteristics.\footnote{This documentation also defines implementation-defined behavior;
-see~\ref{intro.execution}.}%
+实现都应提供相应的文档，
+标示出所有它不支持的有条件支持的构造\indextext{behavior!conditionally-supported}，
+定义出所有地域特定的特性。
+\footnote{文档中还应定义出实现定义的行为；见\ref{intro.execution}。}%
 \indextext{conformance requirements!general|)}%
 \indextext{conformance requirements|)}%
 
@@ -360,41 +354,37 @@ see~\ref{intro.execution}.}%
 \pnum
 \indextext{standard!structure of|(}%
 \indextext{standard!structure of}%
-Clauses~\ref{lex} through~\ref{cpp} describe the \Cpp  programming
-language. That description includes detailed syntactic specifications in
-a form described in~\ref{syntax}. For convenience, Annex~\ref{gram}
-repeats all such syntactic specifications.
+条款\ref{lex}到\ref{cpp}描述程序设计语言\Cpp，
+并按\ref{syntax}所定的形式详尽地描述了语法规定。
+为方便起见，附录\ref{gram}重复列出了所有语法规则。
 
 \pnum
-Clauses~\ref{\firstlibchapter} through~\ref{\lastlibchapter} and Annex~\ref{depr}
-(the \defn{library clauses}) describe the Standard \Cpp  library.
-That description includes detailed descriptions of the templates, classes, functions, constants, and macros that constitute the library, in a form described in Clause~\ref{library}.
-
-
-\pnum
-Annex~\ref{implimits} recommends lower bounds on the capacity of conforming
-implementations.
+条款\ref{\firstlibchapter}到\ref{\lastlibchapter}以及附录\ref{depr}
+（\defn{库条款}）描述\Cpp 标准库，
+并按条款\ref{library}所定的形式详尽地描述了模板、类、函数、常量和宏这些库组件。
 
 \pnum
-Annex~\ref{diff} summarizes the evolution of \Cpp  since its first
-published description, and explains in detail the differences between
-\Cpp  and C\@. Certain features of \Cpp  exist solely for compatibility
-purposes; Annex~\ref{depr} describes those features.
+附录\ref{implimits}列出符合标准的实现的推荐最低要求。
 
 \pnum
-Throughout this International Standard, each example is introduced by
-``\enterexample'' and terminated by ``\exitexample''. Each note is
-introduced by ``\enternote'' and terminated by ``\exitnote''. Examples
-and notes may be nested.%
+附录\ref{diff}汇总了\Cpp 自首次出版说明以来经历的演变，
+并详细阐释了\Cpp 和 C\@之间的差别。
+\Cpp 某些功能仅为兼容目的存在，附录\ref{depr}描述了这些功能。
+
+\pnum
+本标准通篇示例都由``\enterexample''引出，由``\exitexample''结束；
+通篇注释都由``\enternote'引出，由``\exitnote''结束。
+两者可能嵌套。%
 \indextext{standard!structure of|)}
 
-\rSec1[syntax]{Syntax notation}
+\rSec1[syntax]{语法表示法}
 
 \pnum
 \indextext{notation!syntax|(}%
-In the syntax notation used in this International Standard, syntactic
-categories are indicated by \grammarterm{italic} type, and literal words
-and characters in \tcode{constant} \tcode{width} type. Alternatives are
+本标准使用的语法表示法是：
+语法类别以\grammarterm{斜体}表示，
+\transuwave{字面上的单词和字符}以\tcode{等}\tcode{宽}体表示；
+Alternatives are
 listed on separate lines except in a few cases where a long set of
 alternatives is marked by the phrase ``one of.'' If the text of an alternative is too long to fit on a line, the text is continued on subsequent lines indented from the first one.
 An optional terminal or non-terminal symbol is indicated by the subscript
