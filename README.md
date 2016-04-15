@@ -23,7 +23,7 @@ These are the translations of C++ standard drafts. The primative materials were 
   望熟悉latex的人士参与到排版工作中来。
   
 #### 勘误
-  错误总是很难避免，众人拾柴火焰高！您可以提出以下ISSUEs：
+  错误总是很难避免，众人拾柴火焰高！下列的ISSUEs都可以提出：
 + 对原稿的表意有误
 + 语句不通顺或不够精确
 + 排版有误或不美观
