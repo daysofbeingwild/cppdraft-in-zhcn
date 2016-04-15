@@ -189,67 +189,62 @@ ISO/IEC 2382-1:1993界定的术语和定义
 \indexdefn{parameter}%
 \indexdefn{parameter!function}%
 \indexdefn{parameter!catch clause}%
-\definition{parameter}{defns.parameter}
-\defncontext{function or catch clause} object or reference declared as part of a function declaration or
-definition or in the catch clause of an exception handler that
-acquires a value on entry to the function or handler
+\definition{形参}{defns.parameter}
+\defncontext{函数或catch子句}
+作为函数声明或定义的一部分而声明的对象或引用，
+或在函数或处理例程入口捕获值的异常处理例程的catch子句中声明的对象或引用
 
 \indexdefn{parameter}%
 \indexdefn{parameter!function-like macro}%
-\definition{parameter}{defns.parameter.macro}
-\defncontext{function-like macro} identifier from
-the comma-separated list bounded by the parentheses immediately
-following the macro name
+\definition{形参}{defns.parameter.macro}
+\defncontext{函数式宏}
+由圆括号界定、逗号分隔、标识符组成的紧跟于宏名后的列表中的项
 
 \indexdefn{parameter}%
 \indexdefn{parameter!template}%
-\definition{parameter}{defns.parameter.templ}
-\defncontext{template} \grammarterm{template-parameter}
+\definition{形参}{defns.parameter.templ}
+\defncontext{模板} \grammarterm{template-parameter}
 
 \indexdefn{signature}%
-\definition{signature}{defns.signature}
-\defncontext{function} name, parameter type list~(\ref{dcl.fct}), and enclosing namespace (if any)\\
-\enternote Signatures are used as a basis for
-name mangling and linking.\exitnote
+\definition{签名}{defns.signature}
+\defncontext{函数} 名称、形参类型列表(\ref{dcl.fct})以及外围命名空间（如果有的话）\\
+\enternote 签名是name mangling和链接的基础。 \exitnote
 
 \indexdefn{signature}%
-\definition{signature}{defns.signature.templ}
-\defncontext{function template} name, parameter type list~(\ref{dcl.fct}), enclosing namespace (if any),
-return type, and template parameter list
+\definition{签名}{defns.signature.templ}
+\defncontext{函数模板} 名称、形参类型列表(\ref{dcl.fct})、
+外围命名空间（如果有的话）、返回类型以及模板形参列表
 
 \indexdefn{signature}%
-\definition{signature}{defns.signature.spec}
-\defncontext{function template specialization} signature of the template of which it is a specialization
+\definition{签名}{defns.signature.spec}
+\defncontext{函数模板特化} signature of the template of which it is a specialization
 and its template arguments (whether explicitly specified or deduced)
 
 \indexdefn{signature}%
-\definition{signature}{defns.signature.member}
-\defncontext{class member function} name, parameter type list~(\ref{dcl.fct}), class of which the
-function is a member, \cv-qualifiers (if any),
-and \grammarterm{ref-qualifier} (if any)
+\definition{签名}{defns.signature.member}
+\defncontext{类成员函数} 名称、形参类型列表(\ref{dcl.fct})、
+所在类、\cv 限定符（如果有的话）以及\grammarterm{ref-qualifier}（如果有的话）
 
 \indexdefn{signature}%
-\definition{signature}{defns.signature.member.templ}
-\defncontext{class member function template} name, parameter type list~(\ref{dcl.fct}), class of which the
-function is a member, \cv-qualifiers (if any),
-\grammarterm{ref-qualifier} (if any), return type (if any), and template parameter list
+\definition{签名}{defns.signature.member.templ}
+\defncontext{类成员函数模板} 名称、形参类型列表(\ref{dcl.fct})、
+所在类、\cv 限定符（如果有的话）、\grammarterm{ref-qualifier}（如果有的话）、
+返回类型（如果有的话）以及模板形参列表
 
 \indexdefn{signature}%
-\definition{signature}{defns.signature.member.spec}
-\defncontext{class member function template specialization} signature of the member function template
+\definition{签名}{defns.signature.member.spec}
+\defncontext{类成员函数模板特化} signature of the member function template
 of which it is a specialization and its template arguments (whether explicitly specified or deduced)
 
 \indexdefn{type!static}%
-\definition{static type}{defns.static.type}
-type of an expression~(\ref{basic.types}) resulting from
-analysis of the program without considering execution semantics\\
-\enternote The
-static type of an expression depends only on the form of the program in
-which the expression appears, and does not change while the program is
-executing. \exitnote
+\definition{静态类型}{defns.static.type}
+不考虑执行时语义的情况下分析表达式所得的类型(\ref{basic.types})\\
+\enternote
+表达式的静态类型仅取决于该表达式在程序中出现的形式，
+不会在执行时改变。 \exitnote
 
 \indexdefn{behavior!undefined}%
-\definition{undefined behavior}{defns.undefined}
+\definition{未定义行为}{defns.undefined}
 behavior for which this International Standard
 imposes no requirements\\
 \enternote Undefined behavior may be expected when
