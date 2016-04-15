@@ -4,10 +4,10 @@
 \rSec1[iterators.general]{概述}
 
 \pnum
-本章描述\Cpp 程序在容器(\ref{containers}章)中、流(\ref{iostream.format})上以及流缓冲区(\ref{stream.buffers})中进行迭代操作时用到的组件。
+本条款描述\Cpp 程序在容器(条款\ref{containers})中、流(\ref{iostream.format})上以及流缓冲区(\ref{stream.buffers})中进行迭代操作时用到的组件。
 
 \pnum
-本章后续子章节描述迭代器的需求以及迭代器原语、预定义迭代器和流迭代器组件，如表\ref{tab:iterators.lib.summary}所示。
+本条款后续子条款描述迭代器的需求以及迭代器原语、预定义迭代器和流迭代器组件，如表\ref{tab:iterators.lib.summary}所示。
 
 \begin{libsumtab}{迭代器库概览}{tab:iterators.lib.summary}
 	\ref{iterator.requirements} & 需求        &                           \\ \rowsep
@@ -75,7 +75,7 @@ $\rightarrow$ \textbf{前向}  &   $\rightarrow$ \textbf{输入}            \\
 \techterm{无效}迭代器是可能为异值的迭代器。\footnote{此定义也用于指针，因为指针也是迭代器。解引用无效迭代器会造成未定义的结果。}
 
 \pnum
-后续章节中，\tcode{a}和\tcode{b}表示\tcode{X}类型或\tcode{const X}类型的值；\tcode{difference_type}和\tcode{reference}分别表示类型\tcode{iterator_traits<X>::difference_type}和\tcode{iterator_traits<X>::reference}；\tcode{n}表示\tcode{difference_type}类型的值；\tcode{u}、\tcode{tmp}以及\tcode{m}表示标识符；\tcode{r}表示\tcode{X\&}类型的值；\tcode{t}表示\tcode{T}的值类型的值；\tcode{o}表示可写至输出迭代器的类型的值。
+后续条款中，\tcode{a}和\tcode{b}表示\tcode{X}类型或\tcode{const X}类型的值；\tcode{difference_type}和\tcode{reference}分别表示类型\tcode{iterator_traits<X>::difference_type}和\tcode{iterator_traits<X>::reference}；\tcode{n}表示\tcode{difference_type}类型的值；\tcode{u}、\tcode{tmp}以及\tcode{m}表示标识符；\tcode{r}表示\tcode{X\&}类型的值；\tcode{t}表示\tcode{T}的值类型的值；\tcode{o}表示可写至输出迭代器的类型的值。
 \enternote
 每个迭代器类型\tcode{X}都必须存在一个\tcode{iterator_traits<X>}~(\ref{iterator.traits})实例。
 \exitnote
