@@ -4,7 +4,8 @@ These are the translations of C++ standard drafts. The original and various tool
 
 # C++标准草案（简体）中译本
 
-本译本（以下简称译本）为C++标准草案的中文译本，原文以及取自https://github.com/cplusplus/draft。译本对使用中文的读者具有参考意义。
+本译本（以下简称译本）为C++标准草案的中文译本，原文以及取自https://github.com/cplusplus/draft。
+译本对使用中文的读者具有参考意义。
 
 ----
 
