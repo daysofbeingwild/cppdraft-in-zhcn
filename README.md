@@ -17,8 +17,6 @@ These are the translations of C++ standard drafts. The primative materials were 
 + 本译本使用的原版草案不一定与https://github.com/cplusplus/draft 同步
 + 为保证翻译质量（包括翻译的正确性和翻译风格的统一），本项目的发起者目前欢迎、感激并可能采纳任何贡献者的翻译建议以及错误勘正，**但主体翻译任务目前仅由发起者一人进行且暂时并未考虑多人共同翻译**，在以后会考虑多人一起参与翻译工作
 
-----
-
   错误总是很难避免，众人拾柴火焰高！下列的ISSUEs都可以提出：
 + 对原稿的表意有误
 + 语句不通顺或不够精确
