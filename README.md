@@ -11,7 +11,6 @@ These are the translations of C++ standard drafts. The original and various tool
 
 ## 欢迎你的贡献！
 
-译本：
 + 尽量不改变原版草案的排版
 + 力求精准
 + 大多数名词的翻译都参考自*C++ Primer（人民邮电出版社）*一书，完整的名词对照表在文件src\words.md中
