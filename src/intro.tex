@@ -203,17 +203,17 @@ ISO/IEC 2382-1:1993界定的术语和定义
 \indexdefn{parameter}%
 \indexdefn{parameter!template}%
 \definition{形参}{defns.parameter.templ}
-\defncontext{模板} \grammarterm{template-parameter}
+\defncontext{模板} \grammarterm{模板形参}
 
 \indexdefn{signature}%
 \definition{签名}{defns.signature}
-\defncontext{函数} 名称、形参类型列表(\ref{dcl.fct})以及外围命名空间（如果有的话）\\
+\defncontext{函数} 名称、形参类型表(\ref{dcl.fct})以及外围命名空间（如果有的话）\\
 \enternote 签名是name mangling和链接的基础。 \exitnote
 
 \indexdefn{signature}%
 \definition{签名}{defns.signature.templ}
-\defncontext{函数模板} 名称、形参类型列表(\ref{dcl.fct})、
-外围命名空间（如果有的话）、返回类型以及模板形参列表
+\defncontext{函数模板} 名称、形参类型表(\ref{dcl.fct})、
+外围命名空间（如果有的话）、返回类型以及模板形参表
 
 \indexdefn{signature}%
 \definition{签名}{defns.signature.spec}
@@ -222,14 +222,14 @@ and its template arguments (whether explicitly specified or deduced)
 
 \indexdefn{signature}%
 \definition{签名}{defns.signature.member}
-\defncontext{类成员函数} 名称、形参类型列表(\ref{dcl.fct})、
-所在类、\cv 限定符（如果有的话）以及\grammarterm{ref-qualifier}（如果有的话）
+\defncontext{类成员函数} 名称、形参类型表(\ref{dcl.fct})、
+所在类、\cv 限定符（如果有的话）以及\grammarterm{引用限定符}（如果有的话）
 
 \indexdefn{signature}%
 \definition{签名}{defns.signature.member.templ}
-\defncontext{类成员函数模板} 名称、形参类型列表(\ref{dcl.fct})、
-所在类、\cv 限定符（如果有的话）、\grammarterm{ref-qualifier}（如果有的话）、
-返回类型（如果有的话）以及模板形参列表
+\defncontext{类成员函数模板} 名称、形参类型表(\ref{dcl.fct})、
+所在类、\cv 限定符（如果有的话）、\grammarterm{引用限定符}（如果有的话）、
+返回类型（如果有的话）以及模板形参表
 
 \indexdefn{signature}%
 \definition{签名}{defns.signature.member.spec}
@@ -349,7 +349,7 @@ not engender undefined behavior; they are required to be diagnosed.
 \indextext{conformance requirements!general|)}%
 \indextext{conformance requirements|)}%
 
-\rSec1[intro.structure]{Structure of this International Standard}
+\rSec1[intro.structure]{本标准的结构}
 
 \pnum
 \indextext{standard!structure of|(}%
@@ -377,40 +377,34 @@ not engender undefined behavior; they are required to be diagnosed.
 两者可能嵌套。%
 \indextext{standard!structure of|)}
 
-\rSec1[syntax]{语法表示法}
+\rSec1[syntax]{语法表示}
 
 \pnum
 \indextext{notation!syntax|(}%
-本标准使用的语法表示法是：
-语法类别以\grammarterm{斜体}表示，
-\transuwave{字面上的单词和字符}以\tcode{等}\tcode{宽}体表示；
-Alternatives are
-listed on separate lines except in a few cases where a long set of
-alternatives is marked by the phrase ``one of.'' If the text of an alternative is too long to fit on a line, the text is continued on subsequent lines indented from the first one.
-An optional terminal or non-terminal symbol is indicated by the subscript
-``\opt'', so
+本标准使用的语法表示叙述如下：
+语法条目以\grammarterm{斜体}表示，
+\transuwave{字面上的单词和字符}以\tcode{等宽}字体表示；
+各个选择项罗列在各行，少数情况下当选择项太多时用短语``下列之一''标记。
+内容太长一行不能表示的选择项会在后续行中继续书写，后续行会在第一行的基础上缩进。
+可选的终结符或非终结符由下标``\opt''表示，因此，
 
 \begin{ncbnf}
-\terminal{\{} expression\opt{} \terminal{\}}
+\terminal{\{} 表达式\opt{} \terminal{\}}
 \end{ncbnf}
 
-indicates an optional expression enclosed in braces.%
+表示内嵌在花括号中的表达式。%
 
 \pnum
-Names for syntactic categories have generally been chosen according to
-the following rules:
+语法条目一般按以下规则命名：
 \begin{itemize}
-\item \grammarterm{X-name} is a use of an identifier in a context that
-determines its meaning (e.g., \grammarterm{class-name},
-\grammarterm{typedef-name}).
-\item \grammarterm{X-id} is an identifier with no context-dependent meaning
-(e.g., \grammarterm{qualified-id}).
-\item \grammarterm{X-seq} is one or more \grammarterm{X}'s without intervening
-delimiters (e.g., \grammarterm{declaration-seq} is a sequence of
-declarations).
-\item \grammarterm{X-list} is one or more \grammarterm{X}'s separated by
-intervening commas (e.g., \grammarterm{expression-list} is a sequence of
-expressions separated by commas).
+\item \grammarterm{X名}是\transuwave{标识符在决定它含义的某处上下文中的使用}（如\grammarterm{类名}、
+\grammarterm{typedef名}）。
+\item \grammarterm{X标识符}是不带上下文含义的标识符
+（如\grammarterm{限定标识符}）。
+\item \grammarterm{X列}是一个或多个\grammarterm{X}且没有任何分隔符
+（如\grammarterm{声明列}就是声明的序列）。
+\item \grammarterm{X表}是逗号分隔的一个或多个\grammarterm{X}
+（如\grammarterm{表达式表}就是逗号分隔的表达式序列）。
 \end{itemize}%
 \indextext{notation!syntax|)}
 
