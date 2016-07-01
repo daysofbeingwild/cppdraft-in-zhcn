@@ -5,21 +5,20 @@
 %gram:
 
 \pnum
-\enternote This Clause presents the basic concepts of the \Cpp language.
-It explains the difference between an \term{object} and a
-\term{name} and how they relate to the value categories for expressions.
-It introduces the concepts of a
-\term{declaration} and a \term{definition} and presents \Cpp's
-notion of \term{type}, \term{scope}, \term{linkage}, and
-\term{storage} \term{duration}. The mechanisms for starting and
-terminating a program are discussed. Finally, this Clause presents the
-\term{fundamental} types of the language and lists the ways of constructing
-\term{compound} types from these.\exitnote
+\enternote 本条款提出\Cpp 语言的基本概念。
+在本条款中，解释了\term{对象}和\term{名称}之间的差异以及
+它们如何关系到表达式的值类别；
+介绍了\term{声明}和\term{定义}的概念，
+并提出\Cpp 关于\term{类型}、\term{作用域}、\term{linkage}以及\term{存储} \term{周期}方面的概念。
+本条款还讨论了程序启动和终止的机制。
+在最后，本条款提出了语言的\term{基本}类型，
+并列出由\term{基本}类型构造\term{复合}类型的途径。
 
 \pnum
-\enternote This Clause does not cover concepts that affect only a single
-part of the language. Such concepts are discussed in the relevant
-Clauses. \exitnote
+\enternote
+本条款只涉及贯穿于整个语言的概念，
+独立于语言某一部分的概念在相关条款中给出。
+\exitnote
 
 \pnum
 \indextext{name}%
@@ -31,51 +30,46 @@ Clauses. \exitnote
 \indextext{linkage}%
 \indextext{region!declarative}%
 \indextext{entity}%
-An \defn{entity} is a value, object, reference, function, enumerator, type,
-class member, bit-field, template, template specialization, namespace, or
-parameter pack.
+\defn{实体}是值、对象、引用、函数、枚举量、类型、
+类成员、位域、模板、模板特化、命名空间或参包中的一种。
 
 \pnum
-A \defn{name} is a use of an \grammarterm{identifier}~(\ref{lex.name}),
-\grammarterm{operator-function-id}~(\ref{over.oper}),
-\grammarterm{literal-operator-id}~(\ref{over.literal}),
-\grammarterm{conversion-function-id}~(\ref{class.conv.fct}), or
-\grammarterm{template-id}~(\ref{temp.names}) that denotes an entity or
-\grammarterm{label}~(\ref{stmt.goto}, \ref{stmt.label}).
+\defn{名称}是对
+表示实体或\grammarterm{标号}~(\ref{stmt.goto}, \ref{stmt.label})的
+\grammarterm{标识符}~(\ref{lex.name})、
+\grammarterm{操作符函数标识符}~(\ref{over.oper})、
+\grammarterm{字面值操作符标识符}~(\ref{over.literal})、
+\grammarterm{转换函数标识符}~(\ref{class.conv.fct})或
+\grammarterm{模板标识符}~(\ref{temp.names})
+的一次引用。
 
 \pnum
-Every name that denotes an entity is introduced by a
-\term{declaration}. Every name that denotes a label is introduced
-either by a \tcode{goto} statement~(\ref{stmt.goto}) or a
-\grammarterm{labeled-statement}~(\ref{stmt.label}).
+表示实体的名称都由\term{声明}确立。
+表示标号的名称要么由\tcode{goto}语句~(\ref{stmt.goto})确立，
+要么由\grammarterm{标号语句}~(\ref{stmt.label})确立。
 
 \pnum
-A \defn{variable} is introduced by the
-declaration of
-a reference other than a non-static data member or of
-an object. The variable's name, if any, denotes the reference or object.
+\defn{变量}
+由对象的声明确立，或由不作为非静态数据成员的引用的声明确立。
+变量若存在名称，则该名称就表示该对象或引用。
 
 \pnum
-Some names denote types or templates. In general,
-whenever a name is encountered it is necessary to determine whether that name denotes
-one of these entities before continuing to parse the program that contains it. The
-process that determines this is called
-\indextext{lookup!name}%
-\term{name lookup}~(\ref{basic.lookup}).
+某些名称表示类型或模板。
+通常，在分析程序时凡是遇到名称都必须
+先确定该名称是否表示这些实体中的某一个，
+之后才能继续分析。
+确定其含义的这一过程称为\indextext{lookup!name}%
+\term{名称查找}~(\ref{basic.lookup})。
 
 \pnum
-Two names are \term{the same} if
+两个名称\term{相同}，当
 
 \begin{itemize}
-\item they are \grammarterm{identifier}{s} composed of the same character sequence, or
-\item they are \grammarterm{operator-function-id}{s} formed with
-the same operator, or
-\item they are \grammarterm{conversion-function-id}{s} formed
-with the same type, or
-\item they are \grammarterm{template-id}{s} that refer to the same class,
-function, or variable~(\ref{temp.type}), or
-\item they are the names of literal operators~(\ref{over.literal}) formed with
-the same literal suffix identifier.
+\item 两者都是由相同字符序列组成的\grammarterm{标识符}{}，或
+\item 两者都是由同一操作符形成的\grammarterm{操作符函数标识符}{}，或
+\item 两者都是由同一类型形成的\grammarterm{转换函数标识符}{}，或
+\item 两者都是指向同一个类、函数或变量(\ref{temp.type})的\grammarterm{模板标识符c}{}，或
+\item 两者都是由相同的字面值后缀标识符形成的字面值操作符(\ref{over.literal})的名称。
 \end{itemize}
 
 \pnum

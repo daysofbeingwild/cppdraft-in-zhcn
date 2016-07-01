@@ -7,6 +7,7 @@
 \documentclass[ebook,11pt,oneside,openany,final]{memoir}
 % \includeonly{declarations}
 
+\usepackage[slantfont, boldfont]{xeCJK}
 \usepackage{ctex}
 \setCJKmainfont{楷体}
 \setCJKmonofont{宋体}
@@ -102,10 +103,12 @@ plainpages=false
 \mainmatter
 \setglobalstyles
 
-\include{intro}
 \begin{comment}
+\include{intro}
 \include{lex}
+\end{comment}
 \include{basic}
+\begin{comment}
 \include{conversions}
 \include{expressions}
 \include{statements}
