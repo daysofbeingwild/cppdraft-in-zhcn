@@ -752,20 +752,18 @@ void evolve(RandomAccessIterator first, RandomAccessIterator last,
 
 \pnum
 \enterexample
-If a \Cpp program wants to define a bidirectional iterator for some data structure containing
-\tcode{double}
-and such that it
-works on a large memory model of the implementation, it can do so with:
+若某\Cpp 程序希望为某个容纳\tcode{double}的数据结构定义
+双向迭代器并且该迭代器工作在实现提供的大内存模型上，可以如此编码：
 
 \begin{codeblock}
 class MyIterator :
   public iterator<bidirectional_iterator_tag, double, long, T*, T&> {
-  // code implementing \tcode{++}, etc.
+  // 例如，实现\tcode{++}的代码。
 };
 \end{codeblock}
 
 \pnum
-这里就无需特化\tcode{iterator_traits}模板。
+该例无需特化\tcode{iterator_traits}模板。
 \exitexample
 
 \rSec2[iterator.operations]{迭代器操作}
@@ -837,7 +835,7 @@ template <class BidirectionalIterator>
 \rSec2[reverse.iterators]{反向迭代器}
 
 \pnum
-类模板\tcode{reverse_iterator}是一种迭代器适配器，它的遍历顺序是从它底层迭代器定义的序列尾遍历到序列头。反向迭代器和它对应的迭代器\tcode{i}之间的基本关系的建立标志是：\tcode{\&*(reverse_iterator(i)) == \&*(i - 1)}。
+类模板\tcode{reverse_iterator}是一种迭代器适配器，它的遍历顺序是从底层迭代器定义的序列尾遍历到序列头。反向迭代器和它对应的迭代器\tcode{i}之间的基本关系建立在等式：\tcode{\&*(reverse_iterator(i)) == \&*(i - 1)}上。
 
 \rSec3[reverse.iterator]{\tcode{reverse_iterator}类模板}
 
@@ -949,7 +947,7 @@ constexpr reverse_iterator();
 \begin{itemdescr}
 \pnum
 \effects
-将\tcode{current}做值初始化。这种方式构造出的迭代器在某个操作上有明确定义的行为的充要条件是做过值初始化的\tcode{Iterator}类型的迭代器在对应的操作上有定义。
+值初始化\tcode{current}。这种方式构造出的迭代器在进行迭代器操作时有明确定义的行为，当且仅当值初始化的\tcode{Iterator}类型的迭代器在相应的操作上有定义。
 \end{itemdescr}
 
 \indexlibrary{\idxcode{reverse_iterator}!constructor}%
@@ -1328,18 +1326,18 @@ template <class Iterator>
 \rSec2[insert.iterators]{插入迭代器}
 
 \pnum
-为了令插入操作和写入数组操作写法相仿，本库提供了一种特殊的迭代器适配器，称为\techterm{插入迭代器}。对于普通的迭代器类来说，
+为使插入操作和写数组操作写法相仿，本库提供了一种特殊的迭代器适配器，称为\techterm{插入迭代器}。对于常规的迭代器类来说，
 
 \begin{codeblock}
 while (first != last) *result++ = *first++;
 \end{codeblock}
 
 会将范围\range{first}{last}拷贝至result开始的范围。
-同一份代码，如果\tcode{result}是插入迭代器，则是将对应的元素插入到容器。
-这种手段允许本库所有拷贝算法以\techterm{插入模式}而不是\techterm{正常的覆盖}模式工作。
+同一份代码，若\tcode{result}是插入迭代器，则是将对应的元素插入到容器。
+这种手段能令本库所有拷贝算法以\techterm{插入模式}而非\techterm{常规的覆盖}模式工作。
 
 \pnum
-构造插入迭代器需要指定一个容器，如果要插入的地方既不是容器的头部又不是容器的尾部，可以在构造时指定指向容器要插入的地方的迭代器。插入迭代器满足输出迭代器的需求。\tcode{operator*}返回插入迭代器自身。插入迭代器定义了赋值操作\tcode{operator=(const T\& x)}以用来向它们写入，该赋值操作将\tcode{x}插入在插入迭代器指向的地方前。换句话说，插入迭代器就像光标一样指向容器将要插入的位置。\tcode{back_insert_iterator}将元素插入容器的尾部，\tcode{front_insert_iterator}将元素插入容器的头部，\tcode{insert_iterator}将元素插入其指向的容器位置。\tcode{back_inserter}、\tcode{front_inserter}和\tcode{inserter}是三个脱离容器构造插入迭代器的函数。
+插入迭代器可从容器构造得来，若要插入的地方既不是容器的头部又不是容器的尾部，可从该容器的某个迭代器构造得来，该迭代器指向容器要插入的地方。插入迭代器满足输出迭代器需求。\tcode{operator*}返回插入迭代器自身。插入迭代器上定义的赋值操作\tcode{operator=(const T\& x)}用来向插入迭代器写入，它将\tcode{x}插入在插入迭代器指向的地方前。换句话说，插入迭代器就像光标一样指向容器将要插入的位置。\tcode{back_insert_iterator}将元素插入容器的尾部，\tcode{front_insert_iterator}将元素插入容器的头部，\tcode{insert_iterator}将元素插入其指向的容器位置。\tcode{back_inserter}、\tcode{front_inserter}和\tcode{inserter}三个函数从容器构造插入迭代器。
 
 \rSec3[back.insert.iterator]{类模板\tcode{back_insert_iterator}}
 
@@ -1708,14 +1706,14 @@ template <class Container>
 \rSec2[move.iterators]{移动迭代器}
 
 \pnum
-类模板\tcode{move_iterator}是一种迭代器适配器，它和其底层迭代器的行为相同但其间接操作符将其底层迭代器的间接操作符返回的值隐式转换为右值。为某些通用算法调用传递移动迭代器可以将拷贝操作改为移动操作。
+类模板\tcode{move_iterator}是一种迭代器适配器，它和底层迭代器的行为相同但其间接操作符将底层迭代器的间接操作符返回的值隐式转换为右值。以移动迭代器调用某些泛型算法时可使算法的行为从拷贝变为移动。
 
 \pnum
 \enterexample
 
 \begin{codeblock}
 list<string> s;
-// 稳化链表\tcode{s}
+// 迁移链表\tcode{s}
 vector<string> v1(s.begin(), s.end());          // 将字符串拷贝至\tcode{v1}
 vector<string> v2(make_move_iterator(s.begin()),
                   make_move_iterator(s.end())); // 将字符串移动至\tcode{v2}
@@ -1794,13 +1792,14 @@ namespace std {
 \end{codeblock}
 
 \pnum
-令\placeholder{R}为\tcode{iterator_traits<Iterator>::reference}。
-如果\tcode{is_reference<\placeholder{R}>::value}为\tcode{true}，则模板特化\tcode{move_iterator<Iterator>}应该定义名为\tcode{reference}的内嵌类型作为\tcode{remove_reference<\placeholder{R}>::type\&\&}的同义词，否则应该作为\placeholder{R}的同义词。
+令\placeholder{R}为\tcode{iterator_traits<Iterator>::reference}，
+模板特化\tcode{move_iterator<Iterator>}应定义名为\tcode{reference}的内嵌类型，
+若\tcode{is_reference<\placeholder{R}>::value}为\tcode{true}，则该内嵌类型应是\tcode{remove_reference<\placeholder{R}>::type\&\&}的同义词，否则，其应是\placeholder{R}的同义词。
 
 \rSec3[move.iter.requirements]{\tcode{move_iterator}需求}
 
 \pnum
-模板参数\tcode{Iterator}应符合输入迭代器的需求(\ref{input.iterators})。此外，如果实例化了任何双向遍历或随机访问遍历函数，模板参数\tcode{Iterator}还应分别符合双向迭代器(\ref{bidirectional.iterators})或随机访问器(\ref{random.access.iterators})的需求。
+模板参数\tcode{Iterator}应符合输入迭代器需求(\ref{input.iterators})。此外，若实例化了任何双向遍历或随机访问遍历函数，模板参数\tcode{Iterator}还应分别符合双向迭代器(\ref{bidirectional.iterators})需求或随机访问器(\ref{random.access.iterators})需求。
 
 \rSec3[move.iter.ops]{\tcode{move_iterator}操作}
 
@@ -1813,7 +1812,7 @@ constexpr move_iterator();
 
 \begin{itemdescr}
 \pnum
-\effects 构造\tcode{move_iterator}，将\tcode{current}做值初始化。这种方式构造出的迭代器在某个操作上有明确定义的行为的充要条件是做过值初始化的\tcode{Iterator}类型的迭代器在对应的操作上有定义。
+\effects 构造\tcode{move_iterator}，值初始化\tcode{current}。此种方式构造出的迭代器在进行迭代器操作时有明确定义的行为，当且仅当值初始化的\tcode{Iterator}类型的迭代器在相应的操作上有定义。
 \end{itemdescr}
 
 
@@ -2150,7 +2149,7 @@ constexpr move_iterator<Iterator> make_move_iterator(Iterator i);
 \rSec1[stream.iterators]{流迭代器}
 
 \pnum
-为使算法模板能直接工作在输入/输出流上，类似迭代器的类模板被适时提上案。
+为使算法模板直接工作于输入/输出流上，提供了适用的类似迭代器的类模板。
 
 \enterexample
 \begin{codeblock}
@@ -2166,7 +2165,7 @@ partial_sum(istream_iterator<double, char>(cin),
 
 \pnum
 \indexlibrary{\idxcode{istream_iterator}}%
-类模板\tcode{istream_iterator}是一种输入迭代器(\ref{input.iterators})，它从构造它的输入流中（用\tcode{operator\shr}）读取相继的元素。构造后，每次使用\tcode{++}都会读取并存储一个T类型的值。如果迭代器读取或存储T类型的值失败（流上的\tcode{fail()}返回\tcode{true}），该迭代器的值变为\term{流末端}。无参构造函数\tcode{istream_iterator()}构造出的对象就是值为流末端的输入迭代器，流末端迭代器仅仅用作结束条件时有效。流末端迭代器上的\tcode{operator*}的结果是未定义的，非流末端迭代器上的\tcode{operator*}会返回一个\tcode{const T\&}。流末端迭代器上的\tcode{operator->}的结果是未定义的，非流末端迭代器上的\tcode{operator->}会返回一个\tcode{const T*}。程序在流末端迭代器上调用\tcode{operator++()}属于未定义行为。从来不要、也不可能向输入流迭代器中存储值。
+类模板\tcode{istream_iterator}是一种输入迭代器(\ref{input.iterators})，它从构造它的输入流中（用\tcode{operator\shr}）读取相继的元素。构造后，每次使用\tcode{++}都会读取并存储一个T类型的值。若读取或存储T类型的值失败（流上的\tcode{fail()}返回\tcode{true}），该迭代器的值变为\term{流末端}。无参构造函数\tcode{istream_iterator()}构造出的对象就是值为流末端的输入迭代器，流末端迭代器仅用作结束条件时有效。流末端迭代器上的\tcode{operator*}的结果是未定义的，非流末端迭代器上的\tcode{operator*}会返回一个\tcode{const T\&}。流末端迭代器上的\tcode{operator->}的结果是未定义的，非流末端迭代器上的\tcode{operator->}会返回一个\tcode{const T*}。程序在流末端迭代器上调用\tcode{operator++()}属于未定义行为。无法向输入流迭代器中存储值。
 
 \pnum
 两个流末端迭代器永远相等；流末端迭代器和非流末端迭代器永远不等；两个非流末端迭代器构造自同一流时相等。
@@ -2219,7 +2218,7 @@ namespace std {
 \begin{itemdescr}
 \pnum
 \effects
-构造一个流末端迭代器。如果\tcode{T}是literal类型，该构造函数应为\tcode{constexpr}构造函数。
+构造一个流末端迭代器。若\tcode{T}是literal类型，该构造函数应为\tcode{constexpr}构造函数。
 
 \pnum
 \postcondition \tcode{in_stream == 0}。
@@ -2249,7 +2248,7 @@ istream_iterator(const istream_iterator& x) = default;
 \begin{itemdescr}
 \pnum
 \effects
-构造一份\tcode{x}的副本。如果\tcode{T}是literal类型，该构造函数应为传统拷贝构造函数。
+构造一份\tcode{x}的副本。若\tcode{T}是literal类型，该构造函数应为传统拷贝构造函数。
 
 \pnum
 \postcondition \tcode{in_stream == x.in_stream}。
@@ -2263,7 +2262,7 @@ istream_iterator(const istream_iterator& x) = default;
 \begin{itemdescr}
 \pnum
 \effects
-销毁该迭代器。如果\tcode{T}是literal类型，该析构函数应为传统析构函数。
+销毁该迭代器。若\tcode{T}是literal类型，该析构函数应为传统析构函数。
 \end{itemdescr}
 
 \rSec3[istream.iterator.ops]{\tcode{istream_iterator}操作}
@@ -2364,7 +2363,7 @@ template <class T, class charT, class traits, class Distance>
 
 \pnum
 \indexlibrary{\idxcode{ostream_iterator}}%
-\tcode{ostream_iterator}向构造它的输出流中（用\tcode{operator\shl}）写入相继的元素。若\tcode{ostream_iterator}构造时用到了构造函数参数\tcode{charT*}，该字符串（称为\term{分界串}）会在每次写入\tcode{T}后写入流。从来不要、也不可能从输出迭代器中读取值。\tcode{ostream_iterator}的唯一用处是作为输出迭代器应用在类似于以下情况的场合中：
+\tcode{ostream_iterator}向构造它的输出流中（用\tcode{operator\shl}）写入相继的元素。若\tcode{ostream_iterator}构造时用到了构造函数参数\tcode{charT*}，该字符串（称为\term{分界串}）会在每次写入\tcode{T}后写入流。无法从输出迭代器中读取值。\tcode{ostream_iterator}仅作为输出迭代器应用在类似于以下情况的场合中：
 
 \begin{codeblock}
 while (first != last)
@@ -2501,11 +2500,11 @@ ostream_iterator& operator++(int);
 \pnum
 类模板\tcode{istreambuf_iterator}是一种输入迭代器(\ref{input.iterators})，它从构造它的流缓冲区中读取相继的\textit{字符}。\tcode{operator*}提供对当前输入字符（如果有的话）的访问。
 \enternote \tcode{operator->}可能返回一个proxy对象。 \exitnote
-每次调用\tcode{operator++}迭代器都会步进至下一个输入字符。如果到达了流的末端（\tcode{streambuf_type::sgetc()}返回\tcode{traits::eof()}），该迭代器的值变为\term{流末端}。默认构造函数\tcode{istreambuf_iterator()}和构造函数\tcode{istreambuf_iterator(0)}都可以构造出流末端迭代器对象，用作范围结尾。\tcode{istreambuf_iterator}的任何特化都应该存在一个传统拷贝构造函数、一个\tcode{constexpr}构造函数和一个传统析构函数。
+每次调用\tcode{operator++}迭代器都会步进至下一个输入字符。若到达流的末端（\tcode{streambuf_type::sgetc()}返回\tcode{traits::eof()}），该迭代器的值变为\term{流末端}。默认构造函数\tcode{istreambuf_iterator()}和构造函数\tcode{istreambuf_iterator(0)}构造出的都是流末端迭代器对象，流末端迭代器用作范围结尾。\tcode{istreambuf_iterator}的任何特化都应该存在一个传统拷贝构造函数、一个\tcode{constexpr}构造函数和一个传统析构函数。
 
 \pnum
 流末端迭代器上的\tcode{operator*}的结果是未定义的。\indextext{behavior!undefined}%
-非流末端迭代器上的\tcode{operator*}会返回一个\tcode{char_type}值。从来不要、也不可能通过输入迭代器赋值字符。
+非流末端迭代器上的\tcode{operator*}会返回一个\tcode{char_type}值。无法通过输入迭代器赋值字符。
 
 \indexlibrary{\idxcode{istreambuf_iterator}}%
 \begin{codeblock}
@@ -2568,7 +2567,7 @@ namespace std {
 \end{codeblock}
 
 \pnum
-类\tcode{istreambuf_iterator<charT,traits>::proxy}仅作展示。该类的名称由实现任意选择，只要能提供等价的功能。类\tcode{istreambuf_iterator<charT, traits>\colcol{}proxy}提供了一个临时的占位符作为后自增操作符(\tcode{operator++})的返回值。它保存了迭代器前一个值指向的字符，以便后续可能获取该字符之用。
+类\tcode{istreambuf_iterator<charT,traits>::proxy}仅作展示。该类的名称由实现任意选择，只要能提供等价的功能。类\tcode{istreambuf_iterator<charT, traits>\colcol{}proxy} 提供了一个临时的占位符作为后自增操作符(\tcode{operator++})的返回值。它保存了迭代器前一个值指向的字符，以便后续可能获取该字符之用。
 
 \rSec3[istreambuf.iterator.cons]{\tcode{istreambuf_iterator}构造函数}
 
@@ -2727,7 +2726,7 @@ namespace std {
 \end{codeblock}
 
 \pnum
-类模板\tcode{ostreambuf_iterator}向构造它的输出流中写入相继的\textit{字符}。从来不要、也不可能通过输出迭代器获取字符。
+类模板\tcode{ostreambuf_iterator}向构造它的输出流中写入相继的\textit{字符}。无法通过输出迭代器获取字符。
 
 \rSec3[ostreambuf.iter.cons]{\tcode{ostreambuf_iterator}构造函数}
 
