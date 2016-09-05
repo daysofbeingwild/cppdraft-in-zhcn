@@ -1,5 +1,5 @@
 %!TEX root = std.tex
-\rSec0[cpp]{Preprocessing directives}%
+\rSec0[cpp]{预处理指令}%
 \indextext{preprocessing directives|(}
 
 \indextext{compiler control line|see{preprocessing directives}}%
@@ -10,209 +10,189 @@
 %gram:
 
 \pnum
-A \defn{preprocessing directive} consists of a sequence of preprocessing tokens
-that satisfies the following constraints:
-The first token in the sequence is a
-\tcode{\#}
-preprocessing token that (at the start of translation phase 4)
-is either the first character in the source file
-(optionally after white space containing no new-line characters)
-or that follows white space containing at least one new-line character.
-The last token in the sequence is the first new-line character
-that follows the first token in the sequence.\footnote{Thus,
-preprocessing directives are commonly called ``lines.''
-These ``lines'' have no other syntactic significance,
-as all white space is equivalent except in certain situations
-during preprocessing (see the
-\tcode{\#}
-character string literal creation operator in~\ref{cpp.stringize}, for example).}
-A new-line character ends the preprocessing directive even if it occurs
-within what would otherwise be an invocation of a function-like macro.
+\defn{预处理指令}是满足下列约束的预处理符号序列：
+序列第一个符号是预处理符号\tcode{\#}
+并且是源文件的第一个字符（前方可以存在不含换行符的空白）
+或位于至少含有一个换行符的空白后。
+序列最后一个符号是序列第一个符号之后遇到的第一个换行符。
+\footnote{因此，
+	预处理指令通常称作``行''。
+	``行''没有另外的语法含义，
+	因为除了预处理期间某些情况较特殊之外，
+	其它时候所有的空白都是等价的
+	（例如，\ref{cpp.stringize}中的字符字串创建符\tcode{\#}）。}
+预处理指令中的函数风格宏调用不能拆分在多行，
+换行符必定意味着预处理指令结束。
 
 \begin{bnf}
-\nontermdef{preprocessing-file}\br
-    group\opt
+\nontermdef{预处理文件}\br
+    组\opt
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{group}\br
-    group-part\br
-    group group-part
+\nontermdef{组}\br
+    组分\br
+    组~组分
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{group-part}\br
-    if-section\br
-    control-line\br
-    text-line\br
-    \terminal{\#} conditionally-supported-directive
+\nontermdef{组分}\br
+    判断段\br
+    控制行\br
+    文本行\br
+    \terminal{\#} 条件支持指令
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{if-section}\br
-    if-group elif-groups\opt else-group\opt endif-line
+\nontermdef{判断段}\br
+    if组~elif群\opt~else组\opt~判断结束行
 \end{bnf}
 
 \begin{bnftab}
-\nontermdef{if-group}\br
-\>\terminal{\# if}\>\>constant-expression new-line group\opt\br
-\>\terminal{\# ifdef}\>\>identifier new-line group\opt\br
-\>\terminal{\# ifndef}\>\>identifier new-line group\opt
+\nontermdef{if组}\br
+\>\terminal{\# if}\>\>常量表达式~换行~组\opt\br
+\>\terminal{\# ifdef}\>\>标识符~换行~组\opt\br
+\>\terminal{\# ifndef}\>\>标识符~换行~组\opt
 \end{bnftab}
 
 \begin{bnf}
-\nontermdef{elif-groups}\br
-    elif-group\br
-    elif-groups elif-group
+\nontermdef{elif组序列}\br
+    elif组\br
+    elif组序列~elif组
 \end{bnf}
 
 \begin{bnftab}
-\nontermdef{elif-group}\br
-\>\terminal{\# elif}\>\>constant-expression new-line group\opt
+\nontermdef{elif组}\br
+\>\terminal{\# elif}\>\>常量表达式~换行~组\opt
 \end{bnftab}
 
 \begin{bnftab}
-\nontermdef{else-group}\br
-\>\terminal{\# else}\>\>new-line group\opt
+\nontermdef{else组}\br
+\>\terminal{\# else}\>\>换行~组\opt
 \end{bnftab}
 
 \begin{bnftab}
-\nontermdef{endif-line}\br
-\>\terminal{\# endif}\>\>new-line
+\nontermdef{判断结束组}\br
+\>\terminal{\# endif}\>\>换行
 \end{bnftab}
 
 \begin{bnftab}
-\nontermdef{control-line}\br
-\>\terminal{\# include}\>\>pp-tokens new-line\br
-\>\terminal{\# define}\>\>identifier replacement-list new-line\br
-\>\terminal{\# define}\>\>identifier lparen identifier-list\opt{} \terminal{)} replacement-list new-line\br
-\>\terminal{\# define}\>\>identifier lparen \terminal{... )} replacement-list new-line\br
-\>\terminal{\# define}\>\>identifier lparen identifier-list, \terminal{... )} replacement-list new-line\br
-\>\terminal{\# undef}\>\>identifier new-line\br
-\>\terminal{\# line}\>\>pp-tokens new-line\br
-\>\terminal{\# error}\>\>pp-tokens\opt new-line\br
-\>\terminal{\# pragma}\>\>pp-tokens\opt new-line\br
-\>\terminal{\# }new-line
+\nontermdef{控制行}\br
+\>\terminal{\# include}\>\>预处理符号群~换行\br
+\>\terminal{\# define}\>\>标识符~替换列表~换行\br
+\>\terminal{\# define}\>\>标识符~左括弧~标识符列表\opt{}~\terminal{)}~替换列表~换行\br
+\>\terminal{\# define}\>\>标识符~左括弧~\terminal{... )}~替换列表~换行\br
+\>\terminal{\# define}\>\>标识符~左括弧~标识符列表~,~\terminal{... )}~替换列表~换行\br
+\>\terminal{\# undef}\>\>标识符~换行\br
+\>\terminal{\# line}\>\>预处理符号群~换行\br
+\>\terminal{\# error}\>\>预处理符号群\opt~换行\br
+\>\terminal{\# pragma}\>\>预处理符号群\opt~换行\br
+\>\terminal{\# }换行
 \end{bnftab}
 
 \begin{bnf}
-\nontermdef{text-line}\br
-    pp-tokens\opt new-line
+\nontermdef{文本行}\br
+    预处理符号群\opt~换行
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{conditionally-supported-directive}\br
-    pp-tokens new-line
+\nontermdef{条件支持指令}\br
+    预处理符号群~换行
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{lparen}\br
-    \descr{a \terminal{(} character not immediately preceded by white-space}
+\nontermdef{左括弧}\br
+    \descr{不紧跟空白之后的\terminal{(}字符}
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{identifier-list}\br
-    identifier\br
-    identifier-list \terminal{,} identifier
+\nontermdef{标识符列表}\br
+    标识符\br
+    标识符列表~\terminal{,}~标识符
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{replacement-list}\br
-    pp-tokens\opt
+\nontermdef{替换列表}\br
+    预处理符号群\opt
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{pp-tokens}\br
-    preprocessing-token\br
-    pp-tokens preprocessing-token
+\nontermdef{预处理符号群}\br
+    预处理符号\br
+    预处理符号群~预处理符号
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{new-line}\br
-    \descr{the new-line character}
+\nontermdef{换行}\br
+    \descr{换行符}
 \end{bnf}
 
 \pnum
-A text line shall not begin with a \tcode{\#} preprocessing token.
-A \grammarterm{conditionally-supported-directive} shall not begin
-with any of the directive names appearing in the syntax.
-A \grammarterm{conditionally-supported-directive} is
-conditionally-supported with
-\impldef{additional supported forms of preprocessing directive}
-semantics.
+文本行不以预处理符号\tcode{\#}开头。
+\grammarterm{条件支持指令}不以上列语法中的指令名开头。
+\grammarterm{条件支持指令}是条件支持的，
+其语义是\impldef{additional supported forms of preprocessing directive}。
 
 \pnum
-When in a group that is skipped~(\ref{cpp.cond}), the directive
-syntax is relaxed to allow any sequence of preprocessing tokens to occur between
-the directive name and the following new-line character.
+当跳过一个组时~(\ref{cpp.cond})，
+组中指令的语法不再受限，指令名和随后的换行符之间
+可以是任意预处理符号。
 
 \pnum
-The only white-space characters that shall appear
-between preprocessing tokens
-within a preprocessing directive
-(from just after the introducing
-\tcode{\#}
-preprocessing token through just before the terminating new-line character)
-are space and horizontal-tab
-(including spaces that have replaced comments
-or possibly other white-space characters
-in translation phase 3).
+预处理指令中
+（从开头的预处理符号\tcode{\#}到结尾的换行符之间）
+仅允许出现空格和水平制表这两种空白
+（包括已在翻译第三阶段被替换为空白的注释以及其它可能的空白符）。
 
 \pnum
-The implementation can
-process and skip sections of source files conditionally,
-include other source files,
-and replace macros.
-These capabilities are called
-\term{preprocessing},
-because conceptually they occur
-before translation of the resulting translation unit.
+实现可以条件地处理或跳过源文件的某些部分、
+包含其它的源文件以及进行宏替换。
+由于从概念上来说这些行为都发生在翻译最后的翻译单元之前，
+因此这些功能称为\term{预处理}。
 
 \pnum
-The preprocessing tokens within a preprocessing directive
-are not subject to macro expansion unless otherwise stated.
+若无特殊说明，预处理指令中的预处理符号不作宏展开。
 
-\enterexample In:
+\enterexample 在：
 
 \begin{codeblock}
 #define EMPTY
 EMPTY   #   include <file.h>
 \end{codeblock}
 
-the sequence of preprocessing tokens on the second line is \textit{not}
-a preprocessing directive, because it does not begin with a \# at the start of
-translation phase 4, even though it will do so after the macro \tcode{EMPTY}
-has been replaced.\exitexample
+中，虽然宏\tcode{EMPTY}被替换后第二行看似成为预处理指令，
+但第二行的预处理符号序列\textit{不构成}预处理指令，
+因为该序列在翻译第四阶段未以\#开始。
 
-\rSec1[cpp.cond]{Conditional inclusion}%
+\rSec1[cpp.cond]{条件包含}%
 \indextext{preprocessing directive!conditional inclusion}%
 \indextext{inclusion!conditional|see{preprocessing directive, conditional inclusion}}
 
 \indextext{\idxcode{defined}}%
 \begin{ncbnf}
-\nontermdef{defined-macro-expression}\br
-    \terminal{defined} identifier\br
-    \terminal{defined (} identifier \terminal{)}
+\nontermdef{defined宏表达式}\br
+    \terminal{defined} 标识符\br
+    \terminal{defined (} 标识符 \terminal{)}
 \end{ncbnf}
 
 \begin{ncbnf}
-\nontermdef{h-preprocessing-token}\br
-    \textnormal{any \nonterminal{preprocessing-token} other than \terminal{>}}
+\nontermdef{h-预处理符号}\br
+    \textnormal{除\terminal{>}以外的任何\nonterminal{预处理符号}}
 \end{ncbnf}
 
 \begin{ncbnf}
-\nontermdef{h-pp-tokens}\br
-    h-preprocessing-token\br
-    h-pp-tokens h-preprocessing-token
+\nontermdef{h-预处理符号序列}\br
+    h-预处理符号\br
+    h-预处理符号序列 h-预处理符号
 \end{ncbnf}
 
 \indextext{\idxcode{__has_include}}%
 \begin{ncbnf}
-\nontermdef{has-include-expression}\br
-    \terminal{__has_include ( <} h-char-sequence \terminal{> )}\br
-    \terminal{__has_include ( "} q-char-sequence \terminal{" )}\br
-    \terminal{__has_include (}   string-literal  \terminal{)}\br
-    \terminal{__has_include ( <} h-pp-tokens     \terminal{> )}
+\nontermdef{has-include表达式}\br
+    \terminal{__has_include ( <} h-字符序列 \terminal{> )}\br
+    \terminal{__has_include ( "} q-字符序列 \terminal{" )}\br
+    \terminal{__has_include (}   字符串字面值  \terminal{)}\br
+    \terminal{__has_include ( <} h-预处理符号序列     \terminal{> )}
 \end{ncbnf}
 
 \pnum
@@ -576,114 +556,99 @@ directives:
 \end{codeblock}
 \exitexample
 
-\rSec1[cpp.replace]{Macro replacement}%
+\rSec1[cpp.replace]{宏替换}%
 \indextext{macro!replacement|(}%
 \indextext{replacement!macro|see{macro, replacement}}%
 \indextext{preprocessing directives!macro replacement|see{macro, replacement}}
 
 \pnum
 \indextext{macro!replacement list}%
-Two replacement lists are identical if and only if
-the preprocessing tokens in both have
-the same number, ordering, spelling, and white-space separation,
-where all white-space separations are considered identical.
+两个替换列表相同，
+当且仅当它们的预处理符号的
+数目、顺序、拼写和空白间隔都相同，
+这里所有的空白间隔都视为相同。
 
 \pnum
-An identifier currently defined as an
+此时定义为
 \indextext{object-like macro|see{macro, object-like}}%
 \indextext{macro!object-like}%
-\grammarterm{object-like}
-macro may be redefined by another
-\tcode{\#define}
-preprocessing directive provided that the second definition is an
-object-like macro definition and the two replacement lists
-are identical, otherwise the program is ill-formed.
-Likewise, an identifier currently defined as
-a
+\grammarterm{对象风格}
+宏的标识符可以在彼时被其他\tcode{\#define}
+预处理指令重定义，
+只要彼时的定义也是对象风格宏定义
+并且两次定义的替换列表相同，
+如若不然程序是违规的。
+同样地，
+此时定义为
 \indextext{function-like macro|see{macro, function-like}}%
 \indextext{macro!function-like}%
-\grammarterm{function-like}
-macro may be redefined by another
+\grammarterm{函数风格}
+宏的标识符可以在彼时被其他
 \tcode{\#define}
-preprocessing directive provided that the second definition is a
-function-like macro definition that has the same number and spelling
-of parameters,
-and the two replacement lists are identical,
-otherwise the program is ill-formed.
+预处理指令重定义，
+只要彼时的定义也是函数风格宏定义
+并且两次定义具有相同数目和拼写的参数以及相同的替换列表，
+如若不然程序是违规的。
 
 \pnum
 \indextext{macro!replacement list}%
-There shall be white-space between the identifier and the replacement list
-in the definition of an object-like macro.
+在定义对象风格宏时，标识符和替换列表之间应留有空白。
 
 \pnum
-If the \grammarterm{identifier-list} in the macro definition does not end with
-an ellipsis, the number of arguments (including those arguments consisting
-of no preprocessing tokens)
-in an invocation of a function-like macro shall
-equal the number of parameters in the macro definition. Otherwise, there shall be more arguments in the invocation than there are
-parameters in the macro definition (excluding the \tcode{...}). There
-shall exist a
-\tcode{)}
-preprocessing token that terminates the invocation.
+若定义宏时
+\grammarterm{标识符列表}不以省略号结尾，
+则在调用函数风格宏时实参的数目（包括那些零个预处理符号构成的实参）
+应该等于宏定义中形参的数目；
+否则，应该在调用时提供多于宏定义中（除\tcode{...}以外的）形参数目的实参。
+必须以一个预处理符号\tcode{)}结束调用。
 
 \pnum
 \indextext{\xname{VA_ARGS}@\mname{VA_ARGS}}%
-The identifier \mname{VA_ARGS} shall occur only in the replacement-list
-of a function-like macro that uses the ellipsis notation in the parameters.
+标识符\mname{VA_ARGS}仅应出现在形参中使用了省略号的函数风格宏的替换列表中。
 
 \pnum
-A parameter identifier in a function-like macro
-shall be uniquely declared within its scope.
+函数风格宏的形参标识符在其作用域范围内应该是独一无二的。
 
 \pnum
-The identifier immediately following the
-\tcode{define}
-is called the
+紧跟\tcode{define}之后的标识符称为
 \indextext{macro!name}%
 \indextext{name!macro|see{macro, name}}%
-\term{macro name}.
-There is one name space for macro names.
-Any white-space characters preceding or following the
-replacement list of preprocessing tokens are not considered
-part of the replacement list for either form of macro.
+\term{宏名}。
+所有宏名都只共享一个命名空间。
+不管是哪种风格的宏，
+出现在替换列表前方或者后方的空白字符都不作为替换列表的一部分。
 
 \pnum
-If a
+若在可能是预处理指令开头的地方出现了预处理符号
 \indextext{\#\#0~operator@\tcode{\#}~operator}
 \tcode{\#}
-preprocessing token,
-followed by an identifier,
-occurs lexically
-at the point at which a preprocessing directive could begin,
-the identifier is not subject to macro replacement.
+后跟一个标识符，
+该标识符不作宏替换。
 
 \pnum
-A preprocessing directive of the form
+以下形式的预处理指令：
 
 \begin{ncsimplebnf}
 \terminal{\# define} identifier replacement-list new-line
 \indextext{\idxcode{\#define}}%
 \end{ncsimplebnf}
 
-defines an
+定义了一个
 \indextext{macro!object-like}%
-\grammarterm{object-like macro} that
-causes each subsequent instance of the macro name\footnote{Since, by macro-replacement time,
-all character literals and string literals are preprocessing tokens,
-not sequences possibly containing identifier-like subsequences
-(see \ref{lex.phases}, translation phases),
-they are never scanned for macro names or parameters.}
-to be replaced by the replacement list of preprocessing tokens
-that constitute the remainder of the directive.\footnote{An alternative token~(\ref{lex.digraph}) is not an identifier,
-even when its spelling consists entirely of letters and underscores.
-Therefore it is not possible to define a macro
-whose name is the same as that of an alternative token.}
-The replacement list is then rescanned for more macro names as
-specified below.
+\grammarterm{对象风格宏}，
+后续该宏名的所有实例
+\footnote{由于宏替换时
+	所有字符字面值和字符串字面值都是预处理符号
+	而不是包含标识符的序列（见\ref{lex.phases}，翻译阶段），
+	因此它们不会被扫描宏名和形参时扫描。}
+都会被替换为
+构成指令剩余部分的预处理符号替换列表。
+\footnote{替代符号(\ref{lex.digraph})不是标识符，即使它们
+	的拼写全由字母和下划线构成。因此，无法定义和替代符号相同的宏名。}
+接着该列表会再次扫描发现其它宏名，见下文。
 
 \pnum
-A preprocessing directive of the form
+以下形式的预处理指令：
 
 \begin{ncsimplebnf}
 \terminal{\# define} identifier lparen identifier-list\opt{} \terminal{)} replacement-list new-line\br
@@ -692,30 +657,20 @@ A preprocessing directive of the form
 \end{ncsimplebnf}
 
 \indextext{macro!function-like}%
-defines a \grammarterm{function-like macro}
-with parameters, whose use is
-similar syntactically to a function call.
-The parameters
+定义了一个带有参数的\grammarterm{函数风格宏}，
+其用法在语法上很像函数调用。
+参数
 \indextext{parameters!macro}%
-are specified by the optional list of identifiers,
-whose scope extends from their declaration in the identifier list
-until the new-line character that terminates the
-\tcode{\#define}
-preprocessing directive.
-Each subsequent instance of the function-like macro name followed by a
-\tcode{(}
-as the next preprocessing token
-introduces the sequence of preprocessing tokens that is replaced
-by the replacement list in the definition
-(an invocation of the macro).
+由可选的标识符列表指定，
+其作用域由其在标识符列表中的声明开始，
+到终止该\tcode{\#define}预处理指令的换行符处结束，
+后续该函数风格宏名的所有实例后跟预处理符号\tcode{(}
+都引入了一系列将要被定义中的替换列表进行替换的预处理符号、
+（宏调用）。
 \indextext{invocation!macro}%
-The replaced sequence of preprocessing tokens is terminated by the matching
-\tcode{)}
-preprocessing token, skipping intervening matched pairs of left and
-right parenthesis preprocessing tokens.
-Within the sequence of preprocessing tokens making up an invocation
-of a function-like macro,
-new-line is considered a normal white-space character.
+这些要进行替换的预处理符号序列由一个\tcode{)}终止，
+这里不计其间配对的左右括号预处理符号。
+在作为函数风格宏调用参数列表的预处理符号序列中，换行符视为普通的空白符。
 
 \pnum
 \indextext{macro!function-like!arguments}%
