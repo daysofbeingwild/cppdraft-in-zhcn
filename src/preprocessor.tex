@@ -45,7 +45,7 @@
 
 \begin{bnf}
 \nontermdef{判断段}\br
-    if组~elif群\opt~else组\opt~判断结束行
+    if组~elif组序列\opt~else组\opt~判断结束行
 \end{bnf}
 
 \begin{bnftab}
@@ -72,32 +72,32 @@
 \end{bnftab}
 
 \begin{bnftab}
-\nontermdef{判断结束组}\br
+\nontermdef{判断结束行}\br
 \>\terminal{\# endif}\>\>换行
 \end{bnftab}
 
 \begin{bnftab}
 \nontermdef{控制行}\br
-\>\terminal{\# include}\>\>预处理符号群~换行\br
+\>\terminal{\# include}\>\>预处理符号序列~换行\br
 \>\terminal{\# define}\>\>标识符~替换列表~换行\br
 \>\terminal{\# define}\>\>标识符~左括弧~标识符列表\opt{}~\terminal{)}~替换列表~换行\br
 \>\terminal{\# define}\>\>标识符~左括弧~\terminal{... )}~替换列表~换行\br
 \>\terminal{\# define}\>\>标识符~左括弧~标识符列表~,~\terminal{... )}~替换列表~换行\br
 \>\terminal{\# undef}\>\>标识符~换行\br
-\>\terminal{\# line}\>\>预处理符号群~换行\br
-\>\terminal{\# error}\>\>预处理符号群\opt~换行\br
-\>\terminal{\# pragma}\>\>预处理符号群\opt~换行\br
+\>\terminal{\# line}\>\>预处理符号序列~换行\br
+\>\terminal{\# error}\>\>预处理符号序列\opt~换行\br
+\>\terminal{\# pragma}\>\>预处理符号序列\opt~换行\br
 \>\terminal{\# }换行
 \end{bnftab}
 
 \begin{bnf}
 \nontermdef{文本行}\br
-    预处理符号群\opt~换行
+    预处理符号序列\opt~换行
 \end{bnf}
 
 \begin{bnf}
 \nontermdef{条件支持指令}\br
-    预处理符号群~换行
+    预处理符号序列~换行
 \end{bnf}
 
 \begin{bnf}
@@ -113,13 +113,13 @@
 
 \begin{bnf}
 \nontermdef{替换列表}\br
-    预处理符号群\opt
+    预处理符号序列\opt
 \end{bnf}
 
 \begin{bnf}
-\nontermdef{预处理符号群}\br
+\nontermdef{预处理符号序列}\br
     预处理符号\br
-    预处理符号群~预处理符号
+    预处理符号序列~预处理符号
 \end{bnf}
 
 \begin{bnf}
@@ -629,14 +629,14 @@ directives:
 以下形式的预处理指令：
 
 \begin{ncsimplebnf}
-\terminal{\# define} identifier replacement-list new-line
+\terminal{\# define} 标识符~替换列表~换行
 \indextext{\idxcode{\#define}}%
 \end{ncsimplebnf}
 
 定义了一个
 \indextext{macro!object-like}%
 \grammarterm{对象风格宏}，
-后续该宏名的所有实例
+该宏名后续的所有实例
 \footnote{由于宏替换时
 	所有字符字面值和字符串字面值都是预处理符号
 	而不是包含标识符的序列（见\ref{lex.phases}，翻译阶段），
@@ -651,9 +651,9 @@ directives:
 以下形式的预处理指令：
 
 \begin{ncsimplebnf}
-\terminal{\# define} identifier lparen identifier-list\opt{} \terminal{)} replacement-list new-line\br
-\terminal{\# define} identifier lparen \terminal{...} \terminal{)} replacement-list new-line\br
-\terminal{\# define} identifier lparen identifier-list \terminal{, ...} \terminal{)} replacement-list new-line\br
+\terminal{\# define} 标识符~左括弧~标识符列表\opt{}~\terminal{)}~替换列表~换行\br
+\terminal{\# define} 标识符~左括弧~\terminal{...}~\terminal{)}~替换列表~换行\br
+\terminal{\# define} 标识符~左括弧~标识符列表~\terminal{, ...}~\terminal{)}~替换列表~换行\br
 \end{ncsimplebnf}
 
 \indextext{macro!function-like}%
@@ -664,23 +664,20 @@ directives:
 由可选的标识符列表指定，
 其作用域由其在标识符列表中的声明开始，
 到终止该\tcode{\#define}预处理指令的换行符处结束，
-后续该函数风格宏名的所有实例后跟预处理符号\tcode{(}
-都引入了一系列将要被定义中的替换列表进行替换的预处理符号、
+该宏名后续的所有实例后跟预处理符号\tcode{(}
+都引入了一系列将要被定义中的替换列表进行替换的预处理符号
 （宏调用）。
 \indextext{invocation!macro}%
 这些要进行替换的预处理符号序列由一个\tcode{)}终止，
-这里不计其间配对的左右括号预处理符号。
-在作为函数风格宏调用参数列表的预处理符号序列中，换行符视为普通的空白符。
+注意这里不计序列间配成对的左右圆括号。
+调用函数风格宏时，提供的预处理符号序列间出现的换行符都视为普通的空白符。
 
 \pnum
 \indextext{macro!function-like!arguments}%
-The sequence of preprocessing tokens
-bounded by the outside-most matching parentheses
-forms the list of arguments for the function-like macro.
-The individual arguments within the list
-are separated by comma preprocessing tokens,
-but comma preprocessing tokens between matching
-inner parentheses do not separate arguments.
+最外层括号对括住的预处理符号序列
+构成了函数风格宏的实参列表。
+各个实参在列表中由逗号分隔，
+但在内层括号对之间出现的逗号不属于分隔逗号。
 If there are sequences of preprocessing tokens within the list of
 arguments that would otherwise act as preprocessing directives,\footnote{Despite the name, a non-directive is a preprocessing directive.}
 the behavior is undefined.
@@ -695,9 +692,20 @@ arguments so combined is such that, following merger, the number of arguments is
 one more than the number of parameters in the macro definition (excluding the
 \tcode{...}).
 
-\rSec2[cpp.subst]{Argument substitution}%
+\rSec2[cpp.subst]{参数替代}%
 \indextext{macro!argument substitution}%
 \indextext{argument~substitution|see{macro, argument substitution}}%
+
+\pnum
+一旦确定了调用函数式宏提供的实参，
+参数替代就开始进行。
+所有替换列表中前方无\tcode{\#}和\tcode{\#\#}、
+或者后方无\tcode{\#\#}的形参（见下文）都会在实参作了宏展开后，
+被相应的实参替代。
+替代前，
+每个实参的预处理符号序列都进行完全的宏替换，
+其行为类似于它们形成了预处理文件的余下内容,
+其它预处理符号都不再有效。
 
 \pnum
 After the arguments for the invocation of a function-like macro have
@@ -722,105 +730,78 @@ An identifier \mname{VA_ARGS} that occurs in the replacement list
 shall be treated as if it were a parameter, and the variable arguments shall form
 the preprocessing tokens used to replace it.
 
-\rSec2[cpp.stringize]{The \tcode{\#} operator}%
+\rSec2[cpp.stringize]{\tcode{\#}操作符}%
 \indextext{\#\#0~operator@\tcode{\#}~operator}%
 \indextext{stringize|see{\tcode{\#}}}
 
 \pnum
-Each
+函数式宏替换列表中的每个
 \tcode{\#}
-preprocessing token in the replacement list for a function-like
-macro shall be followed by a parameter as the next preprocessing
-token in the replacement list.
+预处理符号后都应该紧跟一个形参在替换列表中。
 
 \pnum
-A \defn{character string literal} is a \grammarterm{string-literal} with no prefix.
-If, in the replacement list, a parameter is immediately
-preceded by a
-\tcode{\#}
-preprocessing token,
-both are replaced by a single character string literal preprocessing token that
-contains the spelling of the preprocessing token sequence for the
-corresponding argument.
-Each occurrence of white space between the argument's preprocessing
-tokens becomes a single space character in the character string literal.
-White space before the first preprocessing token and after the last
-preprocessing token comprising the argument is deleted.
-Otherwise, the original spelling of each preprocessing token in the
-argument is retained in the character string literal,
-except for special handling for producing the spelling of
-string literals and character literals:
-a
-\tcode{\textbackslash}
-character is inserted before each
-\tcode{"}
-and
-\tcode{\textbackslash}
-character of a character literal or string literal
-(including the delimiting
-\tcode{"}
-characters).
-If the replacement that results is not a valid character string literal,
-the behavior is undefined. The character string literal corresponding to
-an empty argument is \tcode{""}.
-The order of evaluation of
-\tcode{\#}
-and
-\tcode{\#\#}
-operators is unspecified.
+\defn{字符字串字面值}是没有前缀的\grammarterm{字符串字面值}。
+若替代列表中形参紧跟在预处理符号\tcode{\#}后，
+该形参和该\tcode{\#}符号会被一起替换为一个单独的字符字面字面值预处理符号，
+该字面值包含了相应实参的预处理符号序列的拼写。
+实参的预处理符号序列中出现的每处空白都会替换成一个空格符。
+序列的首个预处理符号前方和最末预处理符号后方的空白会被丢弃。
+接着，实参中每个预处理符号原本的拼写都会原封不动的
+保留在字符字串字面值中，
+例外是在处理字符字面值和字符串字面值的拼写时
+所有\tcode{"}符（包括分界用的\tcode{"}符）
+和
+\tcode{\textbackslash}符
+前方都会插入一个
+\tcode{\textbackslash}符。
+如果该替换产生的不是有效的字符字串字面值，
+行为是未定义的。
+空实参对应的字符字串字面值是\tcode{""}。
+\tcode{\#}操作符
+和
+\tcode{\#\#}操作符
+的求值顺序是未规定的。
 
-\rSec2[cpp.concat]{The \tcode{\#\#} operator}%
+\rSec2[cpp.concat]{\tcode{\#\#}操作符}%
 \indextext{\#\#1 operator@\tcode{\#\#} operator}%
 \indextext{concatenation!macro argument|see{\tcode{\#\#}}}
 
 \pnum
-A
-\tcode{\#\#}
-preprocessing token shall not occur at the beginning or
-at the end of a replacement list for either form
-of macro definition.
+不管是哪种风格的宏定义，
+替换列表都不应该以预处理符号\tcode{\#\#}开头或结尾。
 
 \pnum
-If, in the replacement list of a function-like macro, a parameter is
-immediately preceded or followed by a
-\tcode{\#\#}
-preprocessing token, the parameter is replaced by the
-corresponding argument's preprocessing token sequence; however, if an argument consists of no preprocessing tokens, the parameter is
-replaced by a placemarker preprocessing token instead.\footnote{Placemarker preprocessing tokens do not appear in the syntax
-because they are temporary entities that exist only within translation phase 4.}
+若函数风格宏的替换列表中形参前方或后方存在预处理符号\tcode{\#\#}，
+则该形参会被替换为对应实参的预处理符号序列；
+但若对应实参不含预处理符号，
+该形参会被替换为预处理占位符。
+\footnote{由于预处理占位符仅是存在于翻译第四阶段的临时物，因此未出现在语法中。}
 
 \pnum
-For both object-like and function-like macro invocations, before the
-replacement list is reexamined for more macro names to replace,
-each instance of a
-\tcode{\#\#}
-preprocessing token in the replacement list
-(not from an argument) is deleted and the
-preceding preprocessing token is concatenated
-with the following preprocessing token.
-Placemarker preprocessing tokens are handled specially: concatenation
-of two placemarkers results in a single placemarker preprocessing token, and
-concatenation of a placemarker with a non-placemarker preprocessing token results
-in the non-placemarker preprocessing token.
-If the result is not a valid preprocessing token,
-the behavior is undefined.
-The resulting token is available for further macro replacement.
-The order of evaluation of
-\tcode{\#\#}
-operators is unspecified.
+不管是哪种风格的宏调用，
+在重新检测替换列表的宏名替换前，
+替换列表包含的（不包括实参中包含的）所有的\tcode{\#\#}预处理符号都会被删除，
+其前方的预处理符号会与后方的预处理符号进行连接。
+预处理占位符需要特殊处理：
+连接两个预处理占位符将得到一个单独的预处理占位符；
+连接预处理占位符与非预处理占位符将得到该非预处理占位符。
+若连接的结果不是有效的预处理符号，
+行为是未定义的。
+连接产生的预处理符号会进一步参与宏替换。
+\tcode{\#\#}操作符之间的求值顺序是未规定的。
 
-\enterexample In the following fragment:
+\enterexample 下列片段中：
 
 \begin{codeblock}
 #define hash_hash # ## #
 #define mkstr(a) # a
 #define in_between(a) mkstr(a)
 #define join(c, d) in_between(c hash_hash d)
-char p[] = join(x, y);          // equivalent to
+char p[] = join(x, y);          // 等价于
                                 // char p[] = "x \#\# y";
 \end{codeblock}
 
-The expansion produces, at various stages:
+每个阶段将如此展开：
 
 \begin{codeblock}
 join(x, y)
@@ -830,9 +811,8 @@ mkstr(x ## y)
 "x ## y"
 \end{codeblock}
 
-In other words, expanding \tcode{hash_hash} produces a new token,
-consisting of two adjacent sharp signs, but this new token is not the
-\tcode{\#\#} operator. \exitexample
+换言之，展开\tcode{hash_hash}得到的是新的符号，它由两个相邻的西文井号组成，
+但该符号并不是\tcode{\#\#}操作符。\exitexample
 
 \rSec2[cpp.rescan]{Rescanning and further replacement}%
 \indextext{macro!rescanning and replacement}%
