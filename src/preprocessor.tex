@@ -595,11 +595,10 @@ directives:
 在定义对象风格宏时，标识符和替换列表之间应留有空白。
 
 \pnum
-若定义宏时
-\grammarterm{标识符列表}不以省略号结尾，
-则在调用函数风格宏时实参的数目（包括那些零个预处理符号构成的实参）
+若定义函数风格宏时\grammarterm{标识符列表}不以省略号结尾，
+则在调用该宏时实参的数目（包括那些零个预处理符号构成的实参）
 应该等于宏定义中形参的数目；
-否则，应该在调用时提供多于宏定义中（除\tcode{...}以外的）形参数目的实参。
+否则，调用时实参的数目应多于宏定义中（除\tcode{...}以外的）形参数目。
 必须以一个预处理符号\tcode{)}结束调用。
 
 \pnum
@@ -619,7 +618,8 @@ directives:
 出现在替换列表前方或者后方的空白字符都不作为替换列表的一部分。
 
 \pnum
-若在可能是预处理指令开头的地方出现了预处理符号
+在所有可能出现预处理指令的地方，
+若出现了预处理符号
 \indextext{\#\#0~operator@\tcode{\#}~operator}
 \tcode{\#}
 后跟一个标识符，
@@ -679,18 +679,17 @@ directives:
 各个实参在列表中由逗号分隔，
 但在内层括号对之间出现的逗号不属于分隔逗号。
 If there are sequences of preprocessing tokens within the list of
-arguments that would otherwise act as preprocessing directives,\footnote{Despite the name, a non-directive is a preprocessing directive.}
+arguments that would otherwise act as preprocessing directives,
+\footnote{非指令也属于预处理指令。}
 the behavior is undefined.
 
 \pnum
 \indextext{macro!function-like!arguments}%
-If there is a \tcode{...} immediately preceding the \tcode{)} in the
-function-like macro
-definition, then the trailing arguments, including any separating comma preprocessing
-tokens, are merged to form a single item: the \term{variable arguments}. The number of
-arguments so combined is such that, following merger, the number of arguments is
-one more than the number of parameters in the macro definition (excluding the
-\tcode{...}).
+若在函数风格宏定义中\tcode{)}的前方是\tcode{...}，
+则末尾所有实参（包括所有逗号分隔的预处理符号）
+都合并为一个单独的项---
+\term{可变实参}。
+自此，合并后实参的数目比形参的数目（不计\tcode{...}）多一。
 
 \rSec2[cpp.subst]{参数替代}%
 \indextext{macro!argument substitution}%
@@ -708,27 +707,19 @@ one more than the number of parameters in the macro definition (excluding the
 其它预处理符号都不再有效。
 
 \pnum
-After the arguments for the invocation of a function-like macro have
-been identified, argument substitution takes place.
-A parameter in the replacement list, unless preceded by a
-\tcode{\#}
-or
-\tcode{\#\#}
-preprocessing token or followed by a
-\tcode{\#\#}
-preprocessing token (see below),
-is replaced by the corresponding argument after all macros
-contained therein have been expanded.
-Before being substituted,
-each argument's preprocessing tokens are completely
-macro replaced as if they formed the rest of the
-preprocessing file;
-no other preprocessing tokens are available.
+调用函数风格宏的实参都确定了之后，
+实参替代就开始进行。
+前方无预处理符号\tcode{\#}和\tcode{\#\#}以及
+后方无预处理符号\tcode{\#\#}的形参（见下文）都会
+在相应实参的所有宏展开后
+被替代为该实参。
+在替代前，每个实参的预处理符号序列都单独进行完全的宏替换，
+实参的替换过程仅在该实参自身的预处理符号序列中进行，
+其他预处理符号不参与它们的替换。
 
 \pnum
-An identifier \mname{VA_ARGS} that occurs in the replacement list
-shall be treated as if it were a parameter, and the variable arguments shall form
-the preprocessing tokens used to replace it.
+出现在替换列表的标识符\mname{VA_ARGS}应当做形参处理，
+它由可变实参提供的预处理符号替换。
 
 \rSec2[cpp.stringize]{\tcode{\#}操作符}%
 \indextext{\#\#0~operator@\tcode{\#}~operator}%
@@ -814,61 +805,54 @@ mkstr(x ## y)
 换言之，展开\tcode{hash_hash}得到的是新的符号，它由两个相邻的西文井号组成，
 但该符号并不是\tcode{\#\#}操作符。\exitexample
 
-\rSec2[cpp.rescan]{Rescanning and further replacement}%
+\rSec2[cpp.rescan]{重扫描及继续替换}%
 \indextext{macro!rescanning and replacement}%
 \indextext{rescanning and replacement|see{macro, rescanning and replacement}}
 
 \pnum
-After all parameters in the replacement list have been substituted and \tcode{\#} and \tcode{\#\#} processing has taken
-place, all placemarker preprocessing tokens are removed. Then
-the resulting preprocessing token sequence is rescanned, along with all
-subsequent preprocessing tokens of the source file, for more macro names
-to replace.
+当替换列表中所有形参都得以替换
+且预处理符号\tcode{\#}和\tcode{\#\#}都得以处理后，
+所有预处理占位符都将被移除。
+最终产生的预处理符号序列
+会与源文件后续的预处理符号序列一并重新扫描
+以发现仍需替换的宏名。
 
 \pnum
-If the name of the macro being replaced is found during this scan of
-the replacement list
-(not including the rest of the source file's preprocessing tokens),
-it is not replaced.
-Furthermore,
-if any nested replacements encounter the name of the macro being replaced,
-it is not replaced.
+若重扫描替换列表的过程中发现了已在替换列表中替换过的宏名
+（不包括源文件后续的预处理符号），该宏名不会再次替换。
+同样地，
+若嵌套替换的过程中遇到已被替换过的宏名，
+该宏名不会再次替换。
 These nonreplaced macro name preprocessing tokens are no longer available
 for further replacement even if they are later (re)examined in contexts
 in which that macro name preprocessing token would otherwise have been
 replaced.
 
 \pnum
-The resulting completely macro-replaced preprocessing token sequence
-is not processed as a preprocessing directive even if it resembles one,
-but all pragma unary operator expressions within it are then processed as
-specified in~\ref{cpp.pragma.op} below.
+即使完全地进行了宏替换后产生的预处理符号序列
+形成了预处理指令，它们也不会当作预处理指令处理，
+但其中包含的所有一元pragma操作符表达式
+会如\ref{cpp.pragma.op}所述得以处理。
 
-\rSec2[cpp.scope]{Scope of macro definitions}%
+\rSec2[cpp.scope]{宏定义的作用域}%
 \indextext{macro!scope of definition}%
 \indextext{scope!macro definition|see{macro, scope of definition}}
 
 \pnum
-A macro definition lasts
-(independent of block structure)
-until a corresponding
-\tcode{\#undef}
-directive is encountered or
-(if none is encountered)
-until the end of the translation unit.
-Macro definitions have no significance after translation phase 4.
+宏定义在遇到相应的\tcode{\#undef}指令前（不受块结构影响）
+或到达翻译单元结束处前（若未遇到相应的\tcode{\#undef}指令）一直有效。
+翻译第四阶段过后，宏定义不再有效。
 
 \pnum
-A preprocessing directive of the form
+下列形式的预处理指令：
 
 \begin{ncsimplebnf}
-\terminal{\# undef} identifier new-line
+\terminal{\# undef}~标识符~换行
 \indextext{\idxcode{\#undef}}%
 \end{ncsimplebnf}
 
-causes the specified identifier no longer to be defined as a macro name.
-It is ignored if the specified identifier is not currently defined as
-a macro name.
+使得指定的标识符不再被定义为宏名。
+若指定的标识符此时并不是宏名，该指令会被忽略。
 
 \pnum
 \enterexample
